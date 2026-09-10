@@ -79,7 +79,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
                     "No se encontró el usuario con id: " + usuarioId);
         }
 
-        return repository.findById(usuarioId)
+        return this.findById(usuarioId)
                 .orElseThrow(() -> new IllegalArgumentException(
                         "No se pudo recuperar el usuario con id: " + usuarioId));
     }

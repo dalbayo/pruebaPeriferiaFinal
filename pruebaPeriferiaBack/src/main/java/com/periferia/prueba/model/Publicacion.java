@@ -1,5 +1,7 @@
 package com.periferia.prueba.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.periferia.prueba.util.FlexibleLocalDateTimeDeserializer;
 import jakarta.persistence.*;
 import lombok.*;
 import java.io.Serializable;
@@ -44,6 +46,7 @@ public class Publicacion implements Serializable {
     private Short estado = 0;
 
     @Column(name = "fecha_publicacion")
+    @JsonDeserialize(using = FlexibleLocalDateTimeDeserializer.class)
     private LocalDateTime fechaPublicacion;
 
     @Builder.Default

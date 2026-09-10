@@ -72,6 +72,9 @@ public class SecurityConfig {
 						// 2. Permitir acceso público a TestController
 						.requestMatchers("/test/**").permitAll()
 
+						// 2b. Permitir acceso público a Swagger/OpenAPI
+						.requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
+
 						// 3. Exigir autenticación para CUALQUIER otra ruta
 						.anyRequest().authenticated())
 				.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
