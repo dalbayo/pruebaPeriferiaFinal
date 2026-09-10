@@ -1,8 +1,6 @@
 # =============================================================================
 # docker-compose.yml - pruebaPeriferiaFinal
-# Servicios: PostgreSQL + Backend (Spring Boot)
-# El frontend Angular se añadirá a este mismo compose cuando exista el
-# proyecto en pruebaPeriferiaFront/ (por ahora esa carpeta está vacía).
+# Servicios: PostgreSQL + Backend (Spring Boot) + Frontend (Angular 17 / Nginx)
 # =============================================================================
 
 services:
@@ -54,6 +52,25 @@ services:
       SECURITY_JWT_EXPIRATION_TIME: ${JWT_EXPIRATION:-3600000}
     ports:
       - "${BACKEND_EXPOSED_PORT:-8080}:8080"
+    networks:
+      - periferia-net
+
+  frontend:
+    build:
+      context: ./pruebaPeriferiaFront
+      dockerfile: Dockerfile
+    container_name: periferia-frontend
+    restart: unless-stopped
+    depends_on:
+      backend:
+        # El Dockerfile del backend define HEALTHCHECK (TCP a :8080); esperamos
+        # a que esté realmente arriba antes de levantar el frontend, no solo
+        # a que el contenedor haya arrancado.
+        condition: service_healthy
+    ports:
+      # Nginx sirve el build de Angular y hace de proxy de /api/v1/ hacia
+      # backend:8080 dentro de esta misma red (ver pruebaPeriferiaFront/nginx.conf).
+      - "${FRONTEND_EXPOSED_PORT:-8090}:80"
     networks:
       - periferia-net
 

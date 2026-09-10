@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 import { Observable, tap } from 'rxjs';
-import { environment } from '../../environments/environment';
+import { construirBaseUrl } from '../shared/construir-base-url';
 import { LoginRequest, LoginResponse } from '../models/auth.model';
 
 const STORAGE_KEYS = {
@@ -14,7 +14,7 @@ const STORAGE_KEYS = {
   providedIn: 'root',
 })
 export class AuthApiService {
-  private readonly baseUrl = `${environment.apiConfig.protocol}://${environment.apiConfig.host}:${environment.apiConfig.port}/api/v1/api/auth`;
+  private readonly baseUrl = construirBaseUrl('/api/v1/api/auth');
 
   private usernameSignal = signal<string | null>(
     localStorage.getItem(STORAGE_KEYS.username),

@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
+import { construirBaseUrl } from '../shared/construir-base-url';
 import {
   Publicacion,
   PublicacionCreateRequest,
@@ -12,7 +12,7 @@ import {
   providedIn: 'root',
 })
 export class PublicacionService {
-  private readonly baseUrl = `${environment.apiConfig.protocol}://${environment.apiConfig.host}:${environment.apiConfig.port}/api/v1/api/publicaciones`;
+  private readonly baseUrl = construirBaseUrl('/api/v1/api/publicaciones');
 
   constructor(private http: HttpClient) {}
 
