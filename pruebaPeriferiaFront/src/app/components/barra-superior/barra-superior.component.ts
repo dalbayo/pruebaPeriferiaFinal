@@ -75,10 +75,9 @@ export class BarraSuperiorComponent implements OnInit {
   }
 
   abrirDialogoCerrarSesion() {
-    const dialogRef = this.dialog.open(CerrarSesionDialogComponent, {
+    this.dialog.open(CerrarSesionDialogComponent, {
       width: '350px',
     });
-    dialogRef.afterClosed().subscribe((result) => {});
   }
 
   cambiarIdioma(idioma: string) {

@@ -50,12 +50,22 @@
             aria-labelledby="languageDropdown"
           >
             <li>
-              <a class="dropdown-item" (click)="cambiarIdioma('en')"
-                >Inglés</a
+              <button
+                type="button"
+                class="dropdown-item"
+                (click)="cambiarIdioma('en')"
               >
+                Inglés
+              </button>
             </li>
             <li>
-              <a class="dropdown-item" (click)="cambiarIdioma('de')">Alemán</a>
+              <button
+                type="button"
+                class="dropdown-item"
+                (click)="cambiarIdioma('de')"
+              >
+                Alemán
+              </button>
             </li>
           </ul>
         </li>
@@ -77,10 +87,14 @@
         }
         @if (sesionIniciada()) {
           <li>
-            <a class="dropdown-item link-style" (click)="abrirDialogoCerrarSesion()">
+            <button
+              type="button"
+              class="dropdown-item link-style"
+              (click)="abrirDialogoCerrarSesion()"
+            >
               <i class="fa-solid fa-right-from-bracket me-3"></i>
               <span>Cerrar sesión</span>
-            </a>
+            </button>
           </li>
         }
       </ul>
