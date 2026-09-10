@@ -1,5 +1,6 @@
 package com.periferia.prueba.controller;
 
+import com.periferia.prueba.exception.RecursoNoEncontradoExcepcion;
 import com.periferia.prueba.model.Usuario;
 import com.periferia.prueba.service.IUsuarioService;
 import lombok.RequiredArgsConstructor;
@@ -37,7 +38,7 @@ public class UsuarioController {
                     ocultarPassword(usuario);
                     return ResponseEntity.ok(usuario);
                 })
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+                .orElseThrow(() -> new RecursoNoEncontradoExcepcion("Usuario no encontrado"));
     }
 
     @PostMapping
@@ -60,7 +61,7 @@ public class UsuarioController {
     @PutMapping("/{id}")
     public ResponseEntity<Usuario> editar(@PathVariable Long id, @RequestBody Usuario request) {
         Usuario usuario = usuarioService.findById(id)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+                .orElseThrow(() -> new RecursoNoEncontradoExcepcion("Usuario no encontrado"));
 
         if (request.getUsername() != null) {
             usuario.setUsername(request.getUsername());

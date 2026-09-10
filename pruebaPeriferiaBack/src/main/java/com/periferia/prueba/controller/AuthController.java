@@ -4,11 +4,16 @@ import org.springframework.web.bind.annotation.*;
 
 import com.periferia.prueba.dto.LoginRequestDto;
 import com.periferia.prueba.dto.TokenResponseDto;
+import com.periferia.prueba.exception.CredencialesInvalidasExcepcion;
+import com.periferia.prueba.exception.RecursoNoEncontradoExcepcion;
+import com.periferia.prueba.exception.SolicitudInvalidaExcepcion;
 import com.periferia.prueba.model.Usuario;
 import com.periferia.prueba.repository.UsuarioRepository;
 import com.periferia.prueba.security.jwt.JwtService;
 import com.periferia.prueba.security.jwt.UserDetailsImpl;
 import com.periferia.prueba.service.IUsuarioService;
+
+import jakarta.validation.Valid;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -50,7 +55,7 @@ public class AuthController {
 
     // 1. LOGIN: Genera ambos tokens por primera vez
     @PostMapping("/login")
-    public ResponseEntity<TokenResponseDto> login(@RequestBody LoginRequestDto request) {
+    public ResponseEntity<TokenResponseDto> login(@Valid @RequestBody LoginRequestDto request) {
         // Valida contra SQL Server
 
         String claveCifrada = passwordEncoder.encode(request.password());
@@ -68,7 +73,7 @@ public class AuthController {
         LocalDateTime refreshTokenExpiry = LocalDateTime.now().plusDays(7);
         Usuario usuario = usuarioService
                 .findByUsername(request.username())
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+                .orElseThrow(() -> new RecursoNoEncontradoExcepcion("Usuario no encontrado"));
 
         // 7. Guardar tokens
         usuarioService.actualizarTokens(
@@ -120,19 +125,19 @@ public class AuthController {
 
         // Validación básica
         if (refreshToken == null || refreshToken.isBlank()) {
-            throw new RuntimeException(
+            throw new SolicitudInvalidaExcepcion(
                     "El refreshToken es obligatorio");
         }
 
         // 1. Buscar usuario por REFRESH TOKEN
         Usuario usuario = usuarioService
                 .findByRefreshToken(refreshToken)
-                .orElseThrow(() -> new RuntimeException(
+                .orElseThrow(() -> new CredencialesInvalidasExcepcion(
                         "Refresh token inválido"));
 
         // 2. Validar usuario
         if (!Boolean.TRUE.equals(usuario.getActivo())) {
-            throw new RuntimeException(
+            throw new CredencialesInvalidasExcepcion(
                     "El usuario está inactivo");
         }
 
@@ -140,7 +145,7 @@ public class AuthController {
         if (usuario.getEliminado() == null ||
                 usuario.getEliminado() != 1) {
 
-            throw new RuntimeException(
+            throw new CredencialesInvalidasExcepcion(
                     "El usuario no está disponible");
         }
 
@@ -149,7 +154,7 @@ public class AuthController {
                 usuario.getRefreshTokenExpiry()
                         .isBefore(LocalDateTime.now())) {
 
-            throw new RuntimeException(
+            throw new CredencialesInvalidasExcepcion(
                     "El refresh token ha expirado");
         }
 
@@ -195,7 +200,7 @@ public class AuthController {
                     if (usuario.getExpiryDate() != null &&
                             usuario.getExpiryDate().isBefore(java.time.LocalDateTime.now())) {
 
-                        throw new RuntimeException("El token de actualizaciÃ³n ha expirado");
+                        throw new CredencialesInvalidasExcepcion("El token de actualización ha expirado");
                     }
                     // 2. Generar nuevo Access Token
                     UserDetails user = new UserDetails() {
@@ -232,7 +237,7 @@ public class AuthController {
 
                     return ResponseEntity.ok(new TokenResponseDto(newAccessToken, newRefreshToken));
                 })
-                .orElseThrow(() -> new RuntimeException("Token de actualizaciÃ³n no encontrado"));
+                .orElseThrow(() -> new CredencialesInvalidasExcepcion("Token de actualización no encontrado"));
     }
 
 }

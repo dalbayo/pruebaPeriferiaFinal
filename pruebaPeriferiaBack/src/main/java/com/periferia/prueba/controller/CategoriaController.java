@@ -1,5 +1,6 @@
 package com.periferia.prueba.controller;
 
+import com.periferia.prueba.exception.RecursoNoEncontradoExcepcion;
 import com.periferia.prueba.model.Categoria;
 import com.periferia.prueba.service.ICategoriaService;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +30,7 @@ public class CategoriaController {
     public ResponseEntity<Categoria> obtener(@PathVariable Long id) {
         return categoriaService.findById(id)
                 .map(ResponseEntity::ok)
-                .orElseThrow(() -> new RuntimeException("Categoría no encontrada"));
+                .orElseThrow(() -> new RecursoNoEncontradoExcepcion("Categoría no encontrada"));
     }
 
     @PostMapping
@@ -42,7 +43,7 @@ public class CategoriaController {
     @PutMapping("/{id}")
     public ResponseEntity<Categoria> editar(@PathVariable Long id, @RequestBody Categoria request) {
         Categoria categoria = categoriaService.findById(id)
-                .orElseThrow(() -> new RuntimeException("Categoría no encontrada"));
+                .orElseThrow(() -> new RecursoNoEncontradoExcepcion("Categoría no encontrada"));
 
         if (request.getNombre() != null) {
             categoria.setNombre(request.getNombre());

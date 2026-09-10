@@ -1,5 +1,6 @@
 package com.periferia.prueba.controller;
 
+import com.periferia.prueba.exception.RecursoNoEncontradoExcepcion;
 import com.periferia.prueba.model.Categoria;
 import com.periferia.prueba.model.Publicacion;
 import com.periferia.prueba.model.Usuario;
@@ -56,7 +57,7 @@ public class PublicacionController {
     public ResponseEntity<Publicacion> obtener(@PathVariable Long id) {
         return publicacionService.findById(id)
                 .map(ResponseEntity::ok)
-                .orElseThrow(() -> new RuntimeException("Publicación no encontrada"));
+                .orElseThrow(() -> new RecursoNoEncontradoExcepcion("Publicación no encontrada"));
     }
 
     @PostMapping
@@ -92,7 +93,7 @@ public class PublicacionController {
     @PutMapping("/{id}")
     public ResponseEntity<Publicacion> editar(@PathVariable Long id, @RequestBody Publicacion request) {
         Publicacion publicacion = publicacionService.findById(id)
-                .orElseThrow(() -> new RuntimeException("Publicación no encontrada"));
+                .orElseThrow(() -> new RecursoNoEncontradoExcepcion("Publicación no encontrada"));
 
         if (request.getTitulo() != null) {
             publicacion.setTitulo(request.getTitulo());
