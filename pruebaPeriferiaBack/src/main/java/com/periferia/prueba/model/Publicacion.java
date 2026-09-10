@@ -7,6 +7,14 @@ import lombok.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+/**
+ * Entidad JPA que representa una publicación/artículo creado por un
+ * usuario, asociada opcionalmente a una categoría. Mantiene su
+ * estado (borrador/publicado/archivado), fechas de publicación y
+ * auditoría, y borrado lógico mediante el campo "eliminado".
+ *
+ * @author daniel.barrera
+ */
 @Entity
 @Table(name = "publicacion")
 @Data

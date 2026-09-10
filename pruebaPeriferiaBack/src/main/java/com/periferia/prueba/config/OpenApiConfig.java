@@ -7,6 +7,13 @@ import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * Configuración de OpenAPI/Swagger. Define el esquema de seguridad
+ * Bearer (JWT) utilizado por la documentación interactiva de la API
+ * (Swagger UI) para autorizar las peticiones de prueba.
+ *
+ * @author daniel.barrera
+ */
 @Configuration
 public class OpenApiConfig {
 

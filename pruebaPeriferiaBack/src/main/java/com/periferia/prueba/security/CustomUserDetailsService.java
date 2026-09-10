@@ -8,6 +8,13 @@ import com.periferia.prueba.model.Usuario;
 import com.periferia.prueba.repository.UsuarioRepository;
 import com.periferia.prueba.security.jwt.UserDetailsImpl;
 
+/**
+ * Implementación de UserDetailsService usada por Spring Security
+ * para cargar un Usuario por su username durante el proceso de
+ * autenticación.
+ *
+ * @author daniel.barrera
+ */
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 

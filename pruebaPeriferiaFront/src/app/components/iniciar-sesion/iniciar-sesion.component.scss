@@ -1,0 +1,17 @@
+.card {
+  max-width: 500px;
+  background: var(--main-bg-color-1);
+  color: var(--primary-text-color);
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  a {
+    color: var(--primary-text-color);
+  }
+}
+
+.form-control {
+  margin-bottom: 1rem;
+}

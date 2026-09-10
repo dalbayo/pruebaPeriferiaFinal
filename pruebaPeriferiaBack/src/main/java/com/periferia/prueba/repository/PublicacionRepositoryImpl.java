@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
  * Implementación custom: en vez de dejar que Spring Data ejecute un DELETE
  * físico (que el trigger trg_soft_delete_publicacion cancela), actualiza
  * directamente la columna eliminado a 0.
+ *
+ * @author daniel.barrera
  */
 @Repository
 public class PublicacionRepositoryImpl implements PublicacionRepositoryCustom {

@@ -6,6 +6,8 @@ package com.periferia.prueba.repository;
  * lugar, ya que el trigger BEFORE DELETE de Postgres cancela el DELETE
  * físico y deja el statement de Hibernate en 0 filas afectadas
  * (ObjectOptimisticLockingFailureException).
+ *
+ * @author daniel.barrera
  */
 public interface PublicacionRepositoryCustom {
     void deleteById(Long id);

@@ -32,6 +32,13 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 
 import java.util.HashMap;
 
+/**
+ * Controlador de autenticación. Expone los endpoints de login,
+ * refresco de tokens y verificación del usuario autenticado (/me),
+ * gestionando la emisión y rotación de access y refresh tokens JWT.
+ *
+ * @author daniel.barrera
+ */
 @RestController
 @RequestMapping("/api/auth")
 // @CrossOrigin(origins = "http://localhost:4000")

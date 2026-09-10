@@ -1,0 +1,89 @@
+<mat-toolbar style="justify-content: space-between">
+  <div style="display: flex; align-items: center">
+    <button
+      mat-icon-button
+      class="example-icon"
+      (click)="alternarMenu()"
+      id="menu-button"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
+    <div routerLink="/publicaciones">Prueba Periferia</div>
+  </div>
+  <div style="display: flex; align-items: center">
+    <div class="toolbar-buttons">
+      <a class="btn home" routerLink="/publicaciones"
+        >{{ 'topnav.home' | translate }}
+      </a>
+      <a
+        class="btn user_menu"
+        id="dropdownMenuLink"
+        data-bs-toggle="dropdown"
+        data-bs-auto-close="outside"
+      >
+        <i class="fa-solid fa-user-circle"></i>
+      </a>
+      <ul class="dropdown-menu user-profile" aria-labelledby="dropdownMenuLink">
+        <li>
+          <a class="dropdown-item link-style">
+            <i
+              [ngClass]="
+                temaOscuro ? 'fa-solid fa-moon me-3' : 'fa-solid fa-sun me-3'
+              "
+            ></i>
+            <mat-slide-toggle (change)="alternarTema()"></mat-slide-toggle>
+          </a>
+        </li>
+        <li class="nav-item dropdown">
+          <a
+            class="dropdown-item link-style dropdown-toggle"
+            id="languageDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <i class="fa-solid fa-globe me-3"></i>
+            <span>{{ 'LANGUAGE' | translate }}</span>
+          </a>
+          <ul
+            class="dropdown-menu language-selection"
+            aria-labelledby="languageDropdown"
+          >
+            <li>
+              <a class="dropdown-item" (click)="cambiarIdioma('en')"
+                >Inglés</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item" (click)="cambiarIdioma('de')">Alemán</a>
+            </li>
+          </ul>
+        </li>
+        @if (username()) {
+          <li>
+            <a class="dropdown-item link-style">
+              <i class="fa-solid fa-person me-4"></i>
+              <span>{{ username() | slice: 0 : 5 | titlecase }}</span>
+            </a>
+          </li>
+        }
+        @if (!sesionIniciada()) {
+          <li>
+            <a class="dropdown-item link-style" routerLink="/login">
+              <i class="fa-solid fa-right-to-bracket me-3"></i>
+              <span>Iniciar sesión</span>
+            </a>
+          </li>
+        }
+        @if (sesionIniciada()) {
+          <li>
+            <a class="dropdown-item link-style" (click)="abrirDialogoCerrarSesion()">
+              <i class="fa-solid fa-right-from-bracket me-3"></i>
+              <span>Cerrar sesión</span>
+            </a>
+          </li>
+        }
+      </ul>
+    </div>
+  </div>
+</mat-toolbar>

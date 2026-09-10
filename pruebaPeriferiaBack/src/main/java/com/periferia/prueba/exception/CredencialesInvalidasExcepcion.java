@@ -4,6 +4,8 @@ package com.periferia.prueba.exception;
  * Token, refresh token o credenciales no válidas / expiradas / de un
  * usuario inactivo o no disponible. Mapeada a 401 en
  * ManejadorGlobalDeExcepciones.
+ *
+ * @author daniel.barrera
  */
 public class CredencialesInvalidasExcepcion extends RuntimeException {
 

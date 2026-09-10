@@ -14,7 +14,7 @@
       id="filtroTipo"
       class="form-select"
       [(ngModel)]="tipoSeleccionado"
-      (ngModelChange)="onFiltroChange()"
+      (ngModelChange)="alCambiarFiltro()"
     >
       <option *ngFor="let opcion of filtroTipos" [ngValue]="opcion.valor">
         {{ opcion.etiqueta }}
@@ -22,18 +22,18 @@
     </select>
   </div>
 
-  <div class="loading-overlay" *ngIf="loading">
+  <div class="loading-overlay" *ngIf="cargando">
     <div class="loading-spinner"></div>
   </div>
 
-  <div class="alert alert-danger" *ngIf="errorMessage">{{ errorMessage }}</div>
+  <div class="alert alert-danger" *ngIf="mensajeError">{{ mensajeError }}</div>
 
   <ag-grid-angular
     style="width: 100%; height: calc(100vh - 270px);"
     class="ag-theme-alpine"
-    [columnDefs]="columnDefs"
-    [rowData]="rowData"
-    [gridOptions]="gridOptions"
+    [columnDefs]="definicionesColumnas"
+    [rowData]="datosFilas"
+    [gridOptions]="opcionesGrid"
   >
   </ag-grid-angular>
 </div>

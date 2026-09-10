@@ -48,16 +48,14 @@ const ESTADOS: { valor: EstadoPublicacion; etiqueta: string }[] = [
 })
 export class PublicacionFormDialogComponent implements OnInit {
   // Tipado inferido por TypeScript desde el fb.group() de abajo (Angular 17
-  // Typed Reactive Forms): cambiar un nombre de campo aquí sin actualizar el
-  // template, o viceversa, ahora falla en compilación en vez de dar undefined
-  // en runtime.
+  // Typed Reactive Forms).
   publicacionForm;
   estados = ESTADOS;
   categorias: Categoria[] = [];
   cargandoCategorias = false;
   guardando = false;
-  errorMessage = '';
-  editMode = false;
+  mensajeError = '';
+  modoEdicion = false;
 
   constructor(
     private fb: NonNullableFormBuilder,
@@ -69,7 +67,7 @@ export class PublicacionFormDialogComponent implements OnInit {
     private data: { publicacion?: Publicacion } | null,
   ) {
     const publicacion = this.data?.publicacion;
-    this.editMode = !!publicacion;
+    this.modoEdicion = !!publicacion;
 
     this.publicacionForm = this.fb.group({
       titulo: [
@@ -114,7 +112,7 @@ export class PublicacionFormDialogComponent implements OnInit {
     });
   }
 
-  submit(): void {
+  guardar(): void {
     if (this.publicacionForm.invalid) {
       this.publicacionForm.markAllAsTouched();
       return;
@@ -131,9 +129,9 @@ export class PublicacionFormDialogComponent implements OnInit {
     };
 
     this.guardando = true;
-    this.errorMessage = '';
+    this.mensajeError = '';
 
-    const peticion = this.editMode
+    const peticion = this.modoEdicion
       ? this.publicacionService.actualizarPublicacion(
           this.data!.publicacion!.id,
           request,
@@ -147,16 +145,16 @@ export class PublicacionFormDialogComponent implements OnInit {
       },
       error: (err: HttpErrorResponse) => {
         this.guardando = false;
-        this.errorMessage =
+        this.mensajeError =
           err.error?.message ||
-          (this.editMode
+          (this.modoEdicion
             ? 'No se pudo actualizar la publicación.'
             : 'No se pudo crear la publicación.');
       },
     });
   }
 
-  cancel(): void {
+  cancelar(): void {
     this.dialogRef.close();
   }
 }

@@ -15,6 +15,8 @@ import java.util.List;
  * CRUD de usuarios. Protegido por JwtAuthFilter (SecurityConfig:
  * anyRequest().authenticated()) — requiere header
  * "Authorization: Bearer {accessToken}" obtenido en /api/auth/login.
+ *
+ * @author daniel.barrera
  */
 @RestController
 @RequestMapping("/api/usuarios")

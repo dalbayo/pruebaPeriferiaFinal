@@ -4,6 +4,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+/**
+ * Configuración CORS a nivel de Spring MVC (WebMvcConfigurer). Permite
+ * peticiones desde cualquier origen (allowedOriginPatterns) con
+ * credenciales habilitadas.
+ *
+ * @author daniel.barrera
+ */
 @Configuration
 public class CorsConfig implements WebMvcConfigurer {
 

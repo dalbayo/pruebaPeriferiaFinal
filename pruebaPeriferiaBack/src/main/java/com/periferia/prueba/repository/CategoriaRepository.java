@@ -6,6 +6,11 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+/**
+ * Repositorio Spring Data JPA para la entidad Categoria.
+ *
+ * @author daniel.barrera
+ */
 @Repository
 public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
 

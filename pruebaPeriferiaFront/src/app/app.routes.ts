@@ -1,32 +1,32 @@
 import { Routes } from '@angular/router';
-import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { LoginComponent } from './components/login/login.component';
-import { SignupComponent } from './components/signup/signup.component';
-import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { PaginaNoEncontradaComponent } from './components/pagina-no-encontrada/pagina-no-encontrada.component';
+import { IniciarSesionComponent } from './components/iniciar-sesion/iniciar-sesion.component';
+import { RegistroComponent } from './components/registro/registro.component';
+import { RecuperarContrasenaComponent } from './components/recuperar-contrasena/recuperar-contrasena.component';
 import { authGuard } from './guards/auth.guard';
-import { LoginRedirectsComponent } from './components/login-redirects/login-redirects.component';
+import { RedireccionLoginComponent } from './components/redireccion-login/redireccion-login.component';
 import { MisPublicacionesComponent } from './components/mis-publicaciones/mis-publicaciones.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   {
     path: 'login',
-    component: LoginComponent,
+    component: IniciarSesionComponent,
     canActivate: [authGuard],
-    title: 'Login',
+    title: 'Iniciar sesión',
   },
-  { path: 'signup', component: SignupComponent, title: 'Signup' },
+  { path: 'signup', component: RegistroComponent, title: 'Registro' },
   {
     path: 'forgot-password',
-    component: ForgotPasswordComponent,
-    title: 'Forgot Password',
+    component: RecuperarContrasenaComponent,
+    title: 'Recuperar contraseña',
   },
-  { path: 'login-redirect', component: LoginRedirectsComponent },
+  { path: 'login-redirect', component: RedireccionLoginComponent },
   {
     path: 'publicaciones',
     component: MisPublicacionesComponent,
     canActivate: [authGuard],
     title: 'Mis publicaciones',
   },
-  { path: '**', component: PageNotFoundComponent },
+  { path: '**', component: PaginaNoEncontradaComponent },
 ];

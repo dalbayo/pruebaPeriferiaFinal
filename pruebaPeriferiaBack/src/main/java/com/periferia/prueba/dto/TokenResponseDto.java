@@ -2,6 +2,13 @@ package com.periferia.prueba.dto;
 
 import lombok.Builder;
 
+/**
+ * DTO (record) para la respuesta de autenticación/refresco. Encapsula
+ * el access token, el refresh token y sus metadatos (tipo y tiempo
+ * de expiración en segundos).
+ *
+ * @author daniel.barrera
+ */
 @Builder
 public record TokenResponseDto(
         String accessToken,

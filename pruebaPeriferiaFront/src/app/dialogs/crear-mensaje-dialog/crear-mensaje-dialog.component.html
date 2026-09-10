@@ -16,16 +16,16 @@
       </mat-form-field>
     </form>
 
-    <div class="alert alert-danger" *ngIf="errorMessage">{{ errorMessage }}</div>
+    <div class="alert alert-danger" *ngIf="mensajeError">{{ mensajeError }}</div>
   </mat-dialog-content>
   <mat-dialog-actions align="end">
-    <button mat-raised-button (click)="cancel()" [disabled]="guardando">
+    <button mat-raised-button (click)="cancelar()" [disabled]="guardando">
       Cancelar
     </button>
     <button
       mat-raised-button
       color="primary"
-      (click)="submit()"
+      (click)="guardar()"
       [disabled]="guardando"
     >
       {{ guardando ? 'Guardando...' : 'Publicar' }}

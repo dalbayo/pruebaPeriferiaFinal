@@ -10,6 +10,13 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import org.springframework.stereotype.Repository;
 
+/**
+ * Repositorio Spring Data JPA para la entidad Usuario, incluyendo
+ * búsquedas por username/token/refresh token y la actualización
+ * atómica de los tokens de sesión (actualizarTokens).
+ *
+ * @author daniel.barrera
+ */
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 

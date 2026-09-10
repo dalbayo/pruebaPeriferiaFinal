@@ -20,6 +20,15 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+/**
+ * Configuración central de Spring Security. Define la cadena de
+ * filtros HTTP en modo stateless (sin sesión), las rutas públicas
+ * (auth, test, swagger) frente a las protegidas por JWT, el origen
+ * de CORS, el codificador de contraseñas (BCrypt) y el registro
+ * manual del filtro JwtAuthFilter en la cadena.
+ *
+ * @author daniel.barrera
+ */
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor

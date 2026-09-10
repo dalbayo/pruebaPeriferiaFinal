@@ -6,6 +6,14 @@ import org.hibernate.annotations.Check;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+/**
+ * Entidad JPA que representa un usuario autenticable de la
+ * plataforma: credenciales, documento de identidad, estado
+ * (activo/eliminado) y los tokens de acceso y refresco vigentes
+ * junto con sus fechas de expiración.
+ *
+ * @author daniel.barrera
+ */
 @Entity
 @Table(name = "usuario", uniqueConstraints = {
                 @UniqueConstraint(name = "uq_usuario_documento", columnNames = { "tipo_documento", "numero_documento" })

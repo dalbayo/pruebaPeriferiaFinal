@@ -1,57 +1,41 @@
-import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
-import { FooterComponent } from './components/footer/footer.component';
+import { PiePaginaComponent } from './components/pie-pagina/pie-pagina.component';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { MatListModule } from '@angular/material/list';
-import { TopNavComponent } from './components/top-nav/top-nav.component';
+import { BarraSuperiorComponent } from './components/barra-superior/barra-superior.component';
 import { NgToastModule, ToasterPosition } from 'ng-angular-popup';
 import { TranslateModule } from '@ngx-translate/core';
-import { InitConfigService } from './services/init-config.service';
 
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   standalone: true,
   imports: [
-    TopNavComponent,
+    BarraSuperiorComponent,
     MatSidenavModule,
     MatListModule,
     RouterLink,
     RouterOutlet,
-    FooterComponent,
+    PiePaginaComponent,
     NgToastModule,
     TranslateModule,
   ],
 })
-export class AppComponent implements OnInit {
-  title = 'crud-app-angular';
-  isMobile: boolean = false;
-  isSideNavOpened = true;
-
-  users: any;
-  initService= inject(InitConfigService)
+export class AppComponent {
+  esMovil: boolean = false;
+  sidenavAbierto = true;
 
   ToasterPosition = ToasterPosition;
 
   @ViewChild('sidenav') sidenav!: MatSidenav;
 
   constructor(private breakpointObserver: BreakpointObserver) {
-    this.isMobile = this.breakpointObserver.isMatched(Breakpoints.Handset);
-    if (this.isMobile) {
-      this.isSideNavOpened = false;
+    this.esMovil = this.breakpointObserver.isMatched(Breakpoints.Handset);
+    if (this.esMovil) {
+      this.sidenavAbierto = false;
     }
-  }
-  ngOnInit(): void {
-  // app initializer consume
-  this.users= this.initService.getUsers();
-  // console.log("users in app component",this.users);
   }
 }

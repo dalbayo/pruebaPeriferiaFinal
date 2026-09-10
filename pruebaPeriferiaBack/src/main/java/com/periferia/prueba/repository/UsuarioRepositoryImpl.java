@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * Implementación custom: actualiza eliminado a 0 en vez de dejar que
  * Spring Data ejecute un DELETE físico.
+ *
+ * @author daniel.barrera
  */
 @Repository
 public class UsuarioRepositoryImpl implements UsuarioRepositoryCustom {

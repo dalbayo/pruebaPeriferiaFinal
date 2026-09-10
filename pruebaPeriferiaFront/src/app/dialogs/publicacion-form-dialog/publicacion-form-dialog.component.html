@@ -1,5 +1,5 @@
 <div class="form-container">
-  <h2 mat-dialog-title>{{ editMode ? 'Editar publicación' : 'Crear publicación' }}</h2>
+  <h2 mat-dialog-title>{{ modoEdicion ? 'Editar publicación' : 'Crear publicación' }}</h2>
   <mat-dialog-content>
     <form [formGroup]="publicacionForm">
       <mat-form-field appearance="fill" class="full-width">
@@ -48,19 +48,19 @@
       </mat-form-field>
     </form>
 
-    <div class="alert alert-danger" *ngIf="errorMessage">{{ errorMessage }}</div>
+    <div class="alert alert-danger" *ngIf="mensajeError">{{ mensajeError }}</div>
   </mat-dialog-content>
   <mat-dialog-actions align="end">
-    <button mat-raised-button (click)="cancel()" [disabled]="guardando">
+    <button mat-raised-button (click)="cancelar()" [disabled]="guardando">
       Cancelar
     </button>
     <button
       mat-raised-button
       color="primary"
-      (click)="submit()"
+      (click)="guardar()"
       [disabled]="guardando"
     >
-      {{ guardando ? 'Guardando...' : (editMode ? 'Actualizar' : 'Guardar') }}
+      {{ guardando ? 'Guardando...' : (modoEdicion ? 'Actualizar' : 'Guardar') }}
     </button>
   </mat-dialog-actions>
 </div>

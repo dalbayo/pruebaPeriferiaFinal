@@ -6,6 +6,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Contrato de servicio para la gestión de usuarios y la actualización
+ * de sus tokens de acceso y refresco (autenticación JWT).
+ *
+ * @author daniel.barrera
+ */
 public interface IUsuarioService {
     List<Usuario> findAll();
 

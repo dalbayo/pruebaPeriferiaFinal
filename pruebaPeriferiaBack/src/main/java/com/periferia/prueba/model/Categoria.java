@@ -4,6 +4,12 @@ import jakarta.persistence.*;
 import lombok.*;
 import java.io.Serializable;
 
+/**
+ * Entidad JPA que representa una categoría usada para clasificar
+ * publicaciones. El nombre y el slug son únicos.
+ *
+ * @author daniel.barrera
+ */
 @Entity
 @Table(name = "categoria")
 @Data

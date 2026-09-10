@@ -12,10 +12,14 @@ import { AuthApiService } from '../services/auth-api.service';
 // Manejo de estado de autenticacion con NgRx SignalStore. La persistencia real
 // (localStorage) y las llamadas HTTP siguen viviendo en AuthApiService; este
 // store solo mantiene el estado reactivo (signals) que consumen los componentes.
+//
+// username/accessToken se mantienen en inglés a propósito: reflejan el
+// contrato JSON exacto con el backend (LoginRequestDto.username/password,
+// columna "username" de la tabla usuario) — ver models/auth.model.ts.
 export interface AuthState {
   username: string | null;
   accessToken: string | null;
-  isLoggedIn: boolean;
+  sesionIniciada: boolean;
 }
 
 const STORAGE_KEYS = {
@@ -26,7 +30,7 @@ const STORAGE_KEYS = {
 const initialState: AuthState = {
   username: null,
   accessToken: null,
-  isLoggedIn: false,
+  sesionIniciada: false,
 };
 
 export const AuthStore = signalStore(
@@ -39,7 +43,7 @@ export const AuthStore = signalStore(
           patchState(store, {
             username,
             accessToken: authApiService.getAccessToken(),
-            isLoggedIn: true,
+            sesionIniciada: true,
           }),
         ),
       );
@@ -50,7 +54,7 @@ export const AuthStore = signalStore(
       patchState(store, {
         username: null,
         accessToken: null,
-        isLoggedIn: false,
+        sesionIniciada: false,
       });
     },
   })),
@@ -61,7 +65,7 @@ export const AuthStore = signalStore(
       patchState(store, {
         username: localStorage.getItem(STORAGE_KEYS.username),
         accessToken: localStorage.getItem(STORAGE_KEYS.accessToken),
-        isLoggedIn: !!localStorage.getItem(STORAGE_KEYS.accessToken),
+        sesionIniciada: !!localStorage.getItem(STORAGE_KEYS.accessToken),
       });
     },
   }),

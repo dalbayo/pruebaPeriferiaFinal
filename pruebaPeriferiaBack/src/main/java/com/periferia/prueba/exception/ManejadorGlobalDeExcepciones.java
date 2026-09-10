@@ -25,6 +25,8 @@ import java.util.Map;
  *
  * El stacktrace completo siempre se loguea acá server-side; al cliente solo
  * le llega un mensaje sanitizado.
+ *
+ * @author daniel.barrera
  */
 @RestControllerAdvice
 public class ManejadorGlobalDeExcepciones {

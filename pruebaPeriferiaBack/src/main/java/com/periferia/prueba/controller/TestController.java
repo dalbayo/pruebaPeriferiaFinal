@@ -10,6 +10,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
+/**
+ * Controlador público de prueba/healthcheck. Expone un endpoint
+ * simple para verificar que el backend está en línea, sin requerir
+ * autenticación.
+ *
+ * @author daniel.barrera
+ */
 @RestController
 @RequestMapping("/test")
 // @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST,

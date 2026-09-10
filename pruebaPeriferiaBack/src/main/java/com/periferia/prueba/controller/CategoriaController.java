@@ -13,6 +13,8 @@ import java.util.List;
 /**
  * CRUD de categorías. Protegido por JwtAuthFilter (SecurityConfig:
  * anyRequest().authenticated()).
+ *
+ * @author daniel.barrera
  */
 @RestController
 @RequestMapping("/api/categorias")

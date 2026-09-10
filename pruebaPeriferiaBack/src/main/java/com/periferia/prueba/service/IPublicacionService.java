@@ -5,6 +5,12 @@ import com.periferia.prueba.model.Publicacion;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Contrato de servicio para la gestión de publicaciones: listado
+ * general, filtrado por autor y CRUD.
+ *
+ * @author daniel.barrera
+ */
 public interface IPublicacionService {
     List<Publicacion> findAll();
 

@@ -1,4 +1,4 @@
-<app-top-nav (sidenavToggle)="sidenav.toggle()"> </app-top-nav>
+<app-barra-superior (cambioMenuLateral)="sidenav.toggle()"> </app-barra-superior>
 
 <mat-sidenav-container>
 
@@ -7,7 +7,7 @@
       <router-outlet></router-outlet>
     </div>
 
-    <app-footer></app-footer>
+    <app-pie-pagina></app-pie-pagina>
   </mat-sidenav-content>
 </mat-sidenav-container>
 

@@ -32,10 +32,10 @@ import { Publicacion } from '../../models/publicacion.model';
 })
 export class CrearMensajeDialogComponent {
   // Tipado inferido desde el fb.group() del constructor (Angular 17 Typed
-  // Reactive Forms) — ver nota en publicacion-form-dialog.component.ts.
+  // Reactive Forms).
   mensajeForm;
   guardando = false;
-  errorMessage = '';
+  mensajeError = '';
 
   private store = inject(PublicacionesStore);
 
@@ -56,7 +56,7 @@ export class CrearMensajeDialogComponent {
     return `${hoy.getFullYear()}-${mes}-${dia}`;
   }
 
-  submit(): void {
+  guardar(): void {
     if (this.mensajeForm.invalid) {
       this.mensajeForm.markAllAsTouched();
       return;
@@ -65,7 +65,7 @@ export class CrearMensajeDialogComponent {
     const { mensaje, fechaPublicacion } = this.mensajeForm.getRawValue();
 
     this.guardando = true;
-    this.errorMessage = '';
+    this.mensajeError = '';
     this.store.crearMensaje(mensaje, fechaPublicacion).subscribe({
       next: (creada: Publicacion) => {
         this.guardando = false;
@@ -73,13 +73,13 @@ export class CrearMensajeDialogComponent {
       },
       error: (err: HttpErrorResponse) => {
         this.guardando = false;
-        this.errorMessage =
+        this.mensajeError =
           err.error?.message || 'No se pudo publicar el mensaje.';
       },
     });
   }
 
-  cancel(): void {
+  cancelar(): void {
     this.dialogRef.close();
   }
 }

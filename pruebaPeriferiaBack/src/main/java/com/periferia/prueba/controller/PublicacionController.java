@@ -19,6 +19,8 @@ import java.util.List;
  * CRUD de publicaciones. Protegido por JwtAuthFilter (SecurityConfig:
  * anyRequest().authenticated()) — el usuario autor se toma del token
  * (Authentication principal) cuando el body no trae "usuario.id".
+ *
+ * @author daniel.barrera
  */
 @RestController
 @RequestMapping("/api/publicaciones")

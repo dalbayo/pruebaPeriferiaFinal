@@ -19,6 +19,8 @@ import java.time.format.DateTimeParseException;
  * y LocalDateTime.from(...) los exige. Este deserializador evita ese
  * problema intentando primero el formato completo y usando LocalDate como
  * fallback.
+ *
+ * @author daniel.barrera
  */
 public class FlexibleLocalDateTimeDeserializer extends JsonDeserializer<LocalDateTime> {
 

@@ -18,7 +18,7 @@ import {
 } from '../../models/publicacion.model';
 import { PublicacionFormDialogComponent } from '../../dialogs/publicacion-form-dialog/publicacion-form-dialog.component';
 import { CrearMensajeDialogComponent } from '../../dialogs/crear-mensaje-dialog/crear-mensaje-dialog.component';
-import { DeleteDialogComponent } from '../../dialogs/delete-dialog/delete-dialog.component';
+import { EliminarDialogComponent } from '../../dialogs/eliminar-dialog/eliminar-dialog.component';
 
 const ESTADO_LABELS: Record<EstadoPublicacion, string> = {
   0: 'Borrador',
@@ -51,7 +51,9 @@ export class MisPublicacionesComponent implements OnInit {
   filtroTipos = FILTRO_TIPOS;
   tipoSeleccionado: TipoFiltroPublicaciones = 0;
 
-  gridOptions: GridOptions = {
+  // Nombre elegido para que coincida con el input [gridOptions] de
+  // ag-grid-angular (API de la librería, no se traduce).
+  opcionesGrid: GridOptions = {
     pagination: true,
     paginationPageSize: 10,
     rowHeight: 50,
@@ -75,7 +77,8 @@ export class MisPublicacionesComponent implements OnInit {
     },
   };
 
-  columnDefs: ColDef[] = [
+  // Alimenta el input [columnDefs] de ag-grid-angular.
+  definicionesColumnas: ColDef[] = [
     { field: 'id', headerName: 'ID', width: 90 },
     {
       field: 'acciones',
@@ -115,15 +118,15 @@ export class MisPublicacionesComponent implements OnInit {
   constructor(private dialog: MatDialog) {}
 
   // Estado (NgRx SignalStore) expuesto al template.
-  get rowData(): Publicacion[] {
+  get datosFilas(): Publicacion[] {
     return this.store.items();
   }
 
-  get loading(): boolean {
+  get cargando(): boolean {
     return this.store.loading();
   }
 
-  get errorMessage(): string {
+  get mensajeError(): string {
     return this.store.error();
   }
 
@@ -131,7 +134,7 @@ export class MisPublicacionesComponent implements OnInit {
     this.store.cargar(this.tipoSeleccionado);
   }
 
-  onFiltroChange(): void {
+  alCambiarFiltro(): void {
     this.store.cargar(this.tipoSeleccionado);
   }
 
@@ -173,14 +176,14 @@ export class MisPublicacionesComponent implements OnInit {
   }
 
   confirmarEliminarPublicacion(publicacion: Publicacion): void {
-    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+    const dialogRef = this.dialog.open(EliminarDialogComponent, {
       data: {
-        message: `¿Deseas eliminar la publicación "${publicacion.titulo}"?`,
+        mensaje: `¿Deseas eliminar la publicación "${publicacion.titulo}"?`,
       },
     });
 
     dialogRef.afterClosed().subscribe((resultado) => {
-      if (resultado?.clicked === 'submit') {
+      if (resultado?.clicked === 'confirmar') {
         this.store.eliminar(publicacion.id);
       }
     });

@@ -4,6 +4,12 @@ import com.periferia.prueba.model.Categoria;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Contrato de servicio para la gestión de categorías (CRUD y
+ * búsqueda por slug).
+ *
+ * @author daniel.barrera
+ */
 public interface ICategoriaService {
     List<Categoria> findAll();
     Optional<Categoria> findById(Long id);
