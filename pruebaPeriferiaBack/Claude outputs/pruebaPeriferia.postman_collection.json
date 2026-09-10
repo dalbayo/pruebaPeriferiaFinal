@@ -1,25 +1,60 @@
 {
   "info": {
     "name": "pruebaPeriferiaFinal",
-    "description": "Colección Postman completa — periferia-backend (Spring Boot 3.4.2, Java 17). Generada leyendo directamente AuthController, TestController, UsuarioController, PerfilController, CategoriaController, PublicacionController, SecurityConfig y las entidades JPA. Rutas públicas (SecurityConfig): /api/auth/** y /test/**. Todo lo demás requiere JWT (Authorization: Bearer {{accessToken}}).",
+    "description": "Colección Postman completa — periferia-backend (Spring Boot 3.4.2, Java 17). Generada leyendo directamente AuthController, TestController, UsuarioController, PerfilController, CategoriaController, PublicacionController, SecurityConfig y las entidades JPA. Rutas públicas (SecurityConfig): /api/auth/** y /test/**. Todo lo demás requiere JWT (Authorization: Bearer {{accessToken}}). baseUrl apunta por defecto al backend directo (levantado con docker compose o con ./mvnw spring-boot:run). Si se prueba la solución completa dockerizada a través del proxy de Nginx del frontend, cambiar baseUrl por el valor de baseUrlDocker (http://localhost:8090/api/v1) — Nginx reenvía /api/v1/ al backend igual.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "auth": {
     "type": "bearer",
     "bearer": [
-      { "key": "token", "value": "{{accessToken}}", "type": "string" }
+      {
+        "key": "token",
+        "value": "{{accessToken}}",
+        "type": "string"
+      }
     ]
   },
   "variable": [
-    { "key": "baseUrl", "value": "http://localhost:8080/api/v1" },
-    { "key": "username", "value": "daniel" },
-    { "key": "password", "value": "" },
-    { "key": "accessToken", "value": "" },
-    { "key": "refreshToken", "value": "" },
-    { "key": "usuarioId", "value": "1" },
-    { "key": "perfilId", "value": "1" },
-    { "key": "categoriaId", "value": "1" },
-    { "key": "publicacionId", "value": "1" }
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080/api/v1"
+    },
+    {
+      "key": "baseUrlDocker",
+      "value": "http://localhost:8090/api/v1"
+    },
+    {
+      "key": "username",
+      "value": "daniel"
+    },
+    {
+      "key": "password",
+      "value": ""
+    },
+    {
+      "key": "accessToken",
+      "value": ""
+    },
+    {
+      "key": "refreshToken",
+      "value": ""
+    },
+    {
+      "key": "usuarioId",
+      "value": "1"
+    },
+    {
+      "key": "perfilId",
+      "value": "1"
+    },
+    {
+      "key": "categoriaId",
+      "value": "1"
+    },
+    {
+      "key": "publicacionId",
+      "value": "1"
+    }
   ],
   "item": [
     {
@@ -44,10 +79,15 @@
             }
           ],
           "request": {
-            "auth": { "type": "noauth" },
+            "auth": {
+              "type": "noauth"
+            },
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -55,8 +95,14 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/auth/login",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "auth", "login"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
             },
             "description": "POST /api/auth/login. Body: LoginRequestDto {username, password}. Autentica contra AuthenticationManager (BCrypt) y devuelve TokenResponseDto {accessToken, refreshToken, tokenType, expiresIn=600}. El test script guarda accessToken/refreshToken como variables de colección."
           }
@@ -68,8 +114,14 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/auth/me",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "auth", "me"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "me"
+              ]
             },
             "description": "GET /api/auth/me. Ruta bajo /api/auth/** (permitAll a nivel de SecurityConfig), pero el propio controller exige @AuthenticationPrincipal no nulo: sin Bearer token válido responde 401. Con token válido devuelve id, username, activo, tipoDocumento, numeroDocumento del usuario dueño del token."
           }
@@ -92,10 +144,15 @@
             }
           ],
           "request": {
-            "auth": { "type": "noauth" },
+            "auth": {
+              "type": "noauth"
+            },
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -103,8 +160,14 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/auth/refresh",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "auth", "refresh"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "refresh"
+              ]
             },
             "description": "POST /api/auth/refresh. Body: {refreshToken}. Busca usuario por refresh_token, valida activo/eliminado/expiración, y rota ambos tokens (usuarioService.actualizarTokens). Devuelve TokenResponseDto nuevo."
           }
@@ -112,10 +175,15 @@
         {
           "name": "Refresh2 (legacy)",
           "request": {
-            "auth": { "type": "noauth" },
+            "auth": {
+              "type": "noauth"
+            },
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -123,8 +191,14 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/auth/refresh2",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "auth", "refresh2"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "refresh2"
+              ]
             },
             "description": "POST /api/auth/refresh2. Ruta alterna legacy que usa el campo 'token' (no 'refresh_token') vía usuarioService.findByToken. Mantenida por compatibilidad — preferir /api/auth/refresh."
           }
@@ -138,13 +212,20 @@
         {
           "name": "Status",
           "request": {
-            "auth": { "type": "noauth" },
+            "auth": {
+              "type": "noauth"
+            },
             "method": "GET",
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/test/status",
-              "host": ["{{baseUrl}}"],
-              "path": ["test", "status"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "test",
+                "status"
+              ]
             },
             "description": "GET /test/status. Sin autenticación. Devuelve {estado, mensaje} — útil para healthcheck manual."
           }
@@ -161,8 +242,13 @@
             "method": "GET",
             "url": {
               "raw": "{{baseUrl}}/api/usuarios",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "usuarios"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "usuarios"
+              ]
             },
             "description": "GET /api/usuarios. Devuelve List<Usuario> con password oculto (ocultarPassword)."
           }
@@ -173,8 +259,14 @@
             "method": "GET",
             "url": {
               "raw": "{{baseUrl}}/api/usuarios/{{usuarioId}}",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "usuarios", "{{usuarioId}}"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "usuarios",
+                "{{usuarioId}}"
+              ]
             }
           }
         },
@@ -183,7 +275,10 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -191,8 +286,13 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/usuarios",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "usuarios"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "usuarios"
+              ]
             },
             "description": "POST /api/usuarios. Body: entidad Usuario (username, password, tipoDocumento, numeroDocumento, activo opcional). El controller fuerza id=null, hashea password con BCrypt, y defaultea activo=true / eliminado=1 si vienen nulos."
           }
@@ -202,7 +302,10 @@
           "request": {
             "method": "PUT",
             "header": [
-              { "key": "Content-Type", "value": "application/json" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -210,8 +313,14 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/usuarios/{{usuarioId}}",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "usuarios", "{{usuarioId}}"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "usuarios",
+                "{{usuarioId}}"
+              ]
             },
             "description": "PUT /api/usuarios/{id}. Update parcial: solo los campos no nulos en el body se aplican (username, tipoDocumento, numeroDocumento, activo, eliminado, password — password solo se re-hashea si viene no vacío)."
           }
@@ -222,8 +331,14 @@
             "method": "DELETE",
             "url": {
               "raw": "{{baseUrl}}/api/usuarios/{{usuarioId}}",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "usuarios", "{{usuarioId}}"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "usuarios",
+                "{{usuarioId}}"
+              ]
             },
             "description": "DELETE /api/usuarios/{id}. Nota: la tabla usuario tiene trigger de soft-delete (trg_soft_delete_usuario) — el DELETE físico de Postgres queda interceptado y en su lugar marca eliminado=0."
           }
@@ -240,8 +355,13 @@
             "method": "GET",
             "url": {
               "raw": "{{baseUrl}}/api/perfiles",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "perfiles"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "perfiles"
+              ]
             }
           }
         },
@@ -251,8 +371,14 @@
             "method": "GET",
             "url": {
               "raw": "{{baseUrl}}/api/perfiles/{{perfilId}}",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "perfiles", "{{perfilId}}"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "perfiles",
+                "{{perfilId}}"
+              ]
             }
           }
         },
@@ -261,7 +387,10 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -269,8 +398,13 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/perfiles",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "perfiles"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "perfiles"
+              ]
             },
             "description": "POST /api/perfiles. Body: {nombre} (unique, not null)."
           }
@@ -280,7 +414,10 @@
           "request": {
             "method": "PUT",
             "header": [
-              { "key": "Content-Type", "value": "application/json" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -288,8 +425,14 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/perfiles/{{perfilId}}",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "perfiles", "{{perfilId}}"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "perfiles",
+                "{{perfilId}}"
+              ]
             }
           }
         },
@@ -299,8 +442,14 @@
             "method": "DELETE",
             "url": {
               "raw": "{{baseUrl}}/api/perfiles/{{perfilId}}",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "perfiles", "{{perfilId}}"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "perfiles",
+                "{{perfilId}}"
+              ]
             },
             "description": "DELETE físico (perfil no tiene soft-delete). Ojo: usuario_perfil tiene FK ON DELETE CASCADE hacia perfil."
           }
@@ -317,8 +466,13 @@
             "method": "GET",
             "url": {
               "raw": "{{baseUrl}}/api/categorias",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "categorias"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "categorias"
+              ]
             }
           }
         },
@@ -328,8 +482,14 @@
             "method": "GET",
             "url": {
               "raw": "{{baseUrl}}/api/categorias/{{categoriaId}}",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "categorias", "{{categoriaId}}"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "categorias",
+                "{{categoriaId}}"
+              ]
             }
           }
         },
@@ -338,7 +498,10 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -346,8 +509,13 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/categorias",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "categorias"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "categorias"
+              ]
             },
             "description": "POST /api/categorias. Body: {nombre, slug} — ambos unique, not null."
           }
@@ -357,7 +525,10 @@
           "request": {
             "method": "PUT",
             "header": [
-              { "key": "Content-Type", "value": "application/json" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -365,8 +536,14 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/categorias/{{categoriaId}}",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "categorias", "{{categoriaId}}"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "categorias",
+                "{{categoriaId}}"
+              ]
             }
           }
         },
@@ -376,8 +553,14 @@
             "method": "DELETE",
             "url": {
               "raw": "{{baseUrl}}/api/categorias/{{categoriaId}}",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "categorias", "{{categoriaId}}"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "categorias",
+                "{{categoriaId}}"
+              ]
             },
             "description": "DELETE físico. publicacion.categoria_id tiene ON DELETE SET NULL."
           }
@@ -394,10 +577,19 @@
             "method": "GET",
             "url": {
               "raw": "{{baseUrl}}/api/publicaciones?tipo=0",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "publicaciones"],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "publicaciones"
+              ],
               "query": [
-                { "key": "tipo", "value": "0", "description": "0=todas (default), 1=mías, 2=de otros usuarios" }
+                {
+                  "key": "tipo",
+                  "value": "0",
+                  "description": "0=todas (default), 1=mías, 2=de otros usuarios"
+                }
               ]
             }
           }
@@ -408,9 +600,19 @@
             "method": "GET",
             "url": {
               "raw": "{{baseUrl}}/api/publicaciones?tipo=1",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "publicaciones"],
-              "query": [{ "key": "tipo", "value": "1" }]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "publicaciones"
+              ],
+              "query": [
+                {
+                  "key": "tipo",
+                  "value": "1"
+                }
+              ]
             }
           }
         },
@@ -420,9 +622,19 @@
             "method": "GET",
             "url": {
               "raw": "{{baseUrl}}/api/publicaciones?tipo=2",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "publicaciones"],
-              "query": [{ "key": "tipo", "value": "2" }]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "publicaciones"
+              ],
+              "query": [
+                {
+                  "key": "tipo",
+                  "value": "2"
+                }
+              ]
             }
           }
         },
@@ -432,8 +644,14 @@
             "method": "GET",
             "url": {
               "raw": "{{baseUrl}}/api/publicaciones/{{publicacionId}}",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "publicaciones", "{{publicacionId}}"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "publicaciones",
+                "{{publicacionId}}"
+              ]
             }
           }
         },
@@ -442,7 +660,10 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -450,8 +671,13 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/publicaciones",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "publicaciones"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "publicaciones"
+              ]
             },
             "description": "POST /api/publicaciones. Body: titulo (obligatorio), contenido (obligatorio), resumen, categoria.id opcional. Si no se envía 'usuario', se asigna automáticamente el dueño del token JWT. slug se autogenera si se omite. estado default 0 (Borrador)."
           }
@@ -461,7 +687,10 @@
           "request": {
             "method": "PUT",
             "header": [
-              { "key": "Content-Type", "value": "application/json" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -469,8 +698,14 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/publicaciones/{{publicacionId}}",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "publicaciones", "{{publicacionId}}"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "publicaciones",
+                "{{publicacionId}}"
+              ]
             },
             "description": "PUT /api/publicaciones/{id}. Update parcial: titulo, slug, resumen, contenido, estado (0 Borrador/1 Publicado/2 Archivado), fechaPublicacion, eliminado, categoria.id."
           }
@@ -481,8 +716,14 @@
             "method": "DELETE",
             "url": {
               "raw": "{{baseUrl}}/api/publicaciones/{{publicacionId}}",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "publicaciones", "{{publicacionId}}"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "publicaciones",
+                "{{publicacionId}}"
+              ]
             },
             "description": "DELETE físico interceptado por trigger de soft-delete (trg_soft_delete_publicacion) — en la práctica marca eliminado=0 en vez de borrar la fila."
           }
