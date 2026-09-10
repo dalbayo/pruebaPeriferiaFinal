@@ -1,0 +1,5 @@
+# Variables de entorno con secretos (no versionar)
+.env
+
+# Volúmenes/datos locales de Postgres si se montan como bind mount
+db/data/

@@ -1,0 +1,67 @@
+# =============================================================================
+# docker-compose.yml - pruebaPeriferiaFinal
+# Servicios: PostgreSQL + Backend (Spring Boot)
+# El frontend Angular se añadirá a este mismo compose cuando exista el
+# proyecto en pruebaPeriferiaFront/ (por ahora esa carpeta está vacía).
+# =============================================================================
+
+services:
+
+  db:
+    image: postgres:16-alpine
+    container_name: periferia-db
+    restart: unless-stopped
+    environment:
+      # OJO: NO fijamos POSTGRES_DB=prueba_periferia.
+      # El script db/init/01-schema.sql hace su propio "CREATE DATABASE
+      # prueba_periferia" + "\connect" -> si POSTGRES_DB ya fuera
+      # "prueba_periferia", el CREATE DATABASE del script fallaría porque
+      # la base ya existiría. Dejamos que postgres arranque con la base
+      # por defecto (POSTGRES_USER) y que el script cree la suya.
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-root}
+    ports:
+      - "${DB_EXPOSED_PORT:-5432}:5432"
+    volumes:
+      - periferia_pgdata:/var/lib/postgresql/data
+      # Solo se ejecuta en el PRIMER arranque (volumen vacío)
+      - ./db/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - periferia-net
+
+  backend:
+    build:
+      context: ./pruebaPeriferiaBack
+      dockerfile: Dockerfile
+    container_name: periferia-backend
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      # Estas variables sobrescriben (relaxed binding de Spring Boot) los
+      # valores de application.properties SIN tocar el archivo ni el código.
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/prueba_periferia
+      SPRING_DATASOURCE_USERNAME: ${DB_USER:-postgres}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD:-root}
+      SECURITY_JWT_SECRET_KEY: ${JWT_SECRET:-EstaEsUnaClaveSuperSecretaParaPeriferia2026}
+      SECURITY_JWT_EXPIRATION_TIME: ${JWT_EXPIRATION:-3600000}
+    ports:
+      - "${BACKEND_EXPOSED_PORT:-8080}:8080"
+    networks:
+      - periferia-net
+
+volumes:
+  periferia_pgdata:
+    name: periferia_pgdata
+
+networks:
+  periferia-net:
+    name: periferia-net
+    driver: bridge
