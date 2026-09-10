@@ -1,0 +1,39 @@
+<div class="publicaciones-container">
+  <div class="header-row">
+    <h2>Mis publicaciones</h2>
+    <div class="header-actions">
+      <button mat-raised-button color="primary" (click)="abrirCrearPublicacion()">
+        Crear publicación
+      </button>
+    </div>
+  </div>
+
+  <div class="filtro-container">
+    <label for="filtroTipo">Filtrar por:</label>
+    <select
+      id="filtroTipo"
+      class="form-select"
+      [(ngModel)]="tipoSeleccionado"
+      (ngModelChange)="alCambiarFiltro()"
+    >
+      <option *ngFor="let opcion of filtroTipos" [ngValue]="opcion.valor">
+        {{ opcion.etiqueta }}
+      </option>
+    </select>
+  </div>
+
+  <div class="loading-overlay" *ngIf="cargando">
+    <div class="loading-spinner"></div>
+  </div>
+
+  <div class="alert alert-danger" *ngIf="mensajeError">{{ mensajeError }}</div>
+
+  <ag-grid-angular
+    style="width: 100%; height: calc(100vh - 270px);"
+    class="ag-theme-alpine"
+    [columnDefs]="definicionesColumnas"
+    [rowData]="datosFilas"
+    [gridOptions]="opcionesGrid"
+  >
+  </ag-grid-angular>
+</div>

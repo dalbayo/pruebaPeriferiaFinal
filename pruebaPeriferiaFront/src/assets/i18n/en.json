@@ -1,0 +1,16 @@
+{
+  "sidenav": {
+    "home": "Home"
+  },
+  "topnav": {
+    "home": "Home"
+  },
+  "home": {
+    "welcome_title": "Welcome",
+    "welcome_subtitle": "You are logged in. This is the general landing page of the app.",
+    "auth_implemented": "Firebase authentication (login, signup, forgot password, logout)",
+    "auth_guard_implemented": "Route protection with Auth Guard",
+    "theme_implemented": "Light / dark theme switcher",
+    "i18n_implemented": "Multilingual support (en/de)"
+  }
+}

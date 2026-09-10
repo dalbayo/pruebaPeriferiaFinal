@@ -1,0 +1,14 @@
+target/
+.git
+.gitignore
+.idea/
+.vscode/
+.settings/
+.classpath
+.factorypath
+.project
+*.iml
+Claude outputs/
+HELP.md
+*.log
+.mvn/wrapper/maven-wrapper.jar

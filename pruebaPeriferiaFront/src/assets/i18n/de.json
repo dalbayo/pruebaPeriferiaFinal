@@ -1,0 +1,16 @@
+{
+  "sidenav": {
+    "home": "Startseite"
+  },
+  "topnav": {
+    "home": "Zuhause"
+  },
+  "home": {
+    "welcome_title": "Willkommen",
+    "welcome_subtitle": "Sie sind angemeldet. Dies ist die allgemeine Startseite der App.",
+    "auth_implemented": "Firebase-Authentifizierung (Anmelden, Registrieren, Passwort vergessen, Abmelden)",
+    "auth_guard_implemented": "Routenschutz mit Auth Guard",
+    "theme_implemented": "Umschalter für helles/dunkles Thema",
+    "i18n_implemented": "Mehrsprachige Unterstützung (en/de)"
+  }
+}

@@ -1,0 +1,14 @@
+<app-barra-superior (cambioMenuLateral)="sidenav.toggle()"> </app-barra-superior>
+
+<mat-sidenav-container>
+
+  <mat-sidenav-content>
+    <div class="container">
+      <router-outlet></router-outlet>
+    </div>
+
+    <app-pie-pagina></app-pie-pagina>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<ng-toast class="snippet-toaster" [position]="ToasterPosition.TOP_RIGHT" />

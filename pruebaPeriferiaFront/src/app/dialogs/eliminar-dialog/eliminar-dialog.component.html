@@ -1,0 +1,9 @@
+<div class="confirm-container">
+  <h1 mat-dialog-title>¿Estás seguro?</h1>
+  <div mat-dialog-content> {{ mensaje }}</div>
+
+  <div mat-dialog-actions style="float: right; margin: 20px">
+    <button mat-button (click)="confirmar()">Aceptar</button>
+    <button mat-button (click)="cancelar()">Cancelar</button>
+  </div>
+</div>

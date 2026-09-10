@@ -1,0 +1,34 @@
+<div class="form-container">
+  <h2 mat-dialog-title>Crear publicación</h2>
+  <mat-dialog-content>
+    <form [formGroup]="mensajeForm">
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Mensaje</mat-label>
+        <textarea matInput formControlName="mensaje" rows="4"></textarea>
+        <mat-error *ngIf="mensajeForm.get('mensaje')?.hasError('required')">
+          El mensaje es requerido
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Fecha de publicación</mat-label>
+        <input matInput type="date" formControlName="fechaPublicacion" />
+      </mat-form-field>
+    </form>
+
+    <div class="alert alert-danger" *ngIf="mensajeError">{{ mensajeError }}</div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-raised-button (click)="cancelar()" [disabled]="guardando">
+      Cancelar
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="guardar()"
+      [disabled]="guardando"
+    >
+      {{ guardando ? 'Guardando...' : 'Publicar' }}
+    </button>
+  </mat-dialog-actions>
+</div>
