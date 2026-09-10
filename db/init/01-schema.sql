@@ -2,12 +2,12 @@
 -- PostgreSQL database dump
 --
 
-\restrict CuNeGKLVIT6gzyrvsP8qR712BeEbe4zjusMNAO8S7ehBVtcClenAT8mlI5uxZka
+\restrict UEHrjGUfJUeVAYJLJlMtphVA6UJz6n5ee5CaHKQgzsxoQ1loesezMa0fdScwTh4
 
 -- Dumped from database version 16.11
 -- Dumped by pg_dump version 16.11
 
--- Started on 2026-09-10 05:06:43
+-- Started on 2026-09-10 05:29:00
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -227,7 +227,7 @@ CREATE TABLE public.categoria (
 ALTER TABLE public.categoria OWNER TO postgres;
 
 --
--- TOC entry 4959 (class 0 OID 0)
+-- TOC entry 4958 (class 0 OID 0)
 -- Dependencies: 218
 -- Name: TABLE categoria; Type: COMMENT; Schema: public; Owner: postgres
 --
@@ -276,7 +276,7 @@ CREATE TABLE public.publicacion (
 ALTER TABLE public.publicacion OWNER TO postgres;
 
 --
--- TOC entry 4960 (class 0 OID 0)
+-- TOC entry 4959 (class 0 OID 0)
 -- Dependencies: 220
 -- Name: TABLE publicacion; Type: COMMENT; Schema: public; Owner: postgres
 --
@@ -324,7 +324,7 @@ CREATE TABLE public.usuario (
 ALTER TABLE public.usuario OWNER TO postgres;
 
 --
--- TOC entry 4961 (class 0 OID 0)
+-- TOC entry 4960 (class 0 OID 0)
 -- Dependencies: 216
 -- Name: TABLE usuario; Type: COMMENT; Schema: public; Owner: postgres
 --
@@ -348,7 +348,7 @@ ALTER TABLE public.usuario ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
 
 
 --
--- TOC entry 4953 (class 0 OID 18429)
+-- TOC entry 4952 (class 0 OID 18429)
 -- Dependencies: 224
 -- Data for Name: auditoria_publicacion; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -406,10 +406,15 @@ INSERT INTO public.auditoria_publicacion OVERRIDING SYSTEM VALUE VALUES (50, 3, 
 INSERT INTO public.auditoria_publicacion OVERRIDING SYSTEM VALUE VALUES (51, 46, 'INSERT', 'postgres', '2026-09-10 04:15:53.05486', NULL);
 INSERT INTO public.auditoria_publicacion OVERRIDING SYSTEM VALUE VALUES (53, 46, 'UPDATE', 'postgres', '2026-09-10 04:16:28.26996', '{"id": 46, "slug": "aaa-1789031753037", "estado": 0, "titulo": "aaa", "resumen": "aaa", "contenido": "aaa", "creado_en": "2026-09-10T04:15:53.039037", "eliminado": 1, "usuario_id": 1, "categoria_id": 4, "actualizado_en": "2026-09-10T04:15:53.039037", "fecha_publicacion": "2026-09-10T00:00:00"}');
 INSERT INTO public.auditoria_publicacion OVERRIDING SYSTEM VALUE VALUES (54, 1, 'UPDATE', 'postgres', '2026-09-10 05:05:40.876682', '{"id": 1, "slug": "publicacion-1-daniel-6445ba", "estado": 1, "titulo": "Título editado", "resumen": "Resumen breve para la publicación número 1 del usuario daniel.", "contenido": "Contenido editado", "creado_en": "2026-08-29T17:09:46.707358", "eliminado": 1, "usuario_id": 1, "categoria_id": 3, "actualizado_en": "2026-09-10T04:04:15.582619", "fecha_publicacion": "2026-08-19T20:03:54.183974"}');
+INSERT INTO public.auditoria_publicacion OVERRIDING SYSTEM VALUE VALUES (55, 4, 'UPDATE', 'postgres', '2026-09-10 05:11:54.207639', '{"id": 4, "slug": "publicacion-4-daniel-8b063f", "estado": 1, "titulo": "Publicación N° 4 de daniel", "resumen": "Resumen breve para la publicación número 4 del usuario daniel.", "contenido": "Contenido completo y detallado para la publicación 4 registrada por el usuario daniel.", "creado_en": "2026-09-04T11:59:53.174635", "eliminado": 1, "usuario_id": 1, "categoria_id": 3, "actualizado_en": "2026-09-10T02:58:12.586344", "fecha_publicacion": "2026-08-28T10:05:48.341003"}');
+INSERT INTO public.auditoria_publicacion OVERRIDING SYSTEM VALUE VALUES (56, 47, 'INSERT', 'postgres', '2026-09-10 05:12:06.603995', NULL);
+INSERT INTO public.auditoria_publicacion OVERRIDING SYSTEM VALUE VALUES (57, 48, 'INSERT', 'postgres', '2026-09-10 05:12:12.927423', NULL);
+INSERT INTO public.auditoria_publicacion OVERRIDING SYSTEM VALUE VALUES (59, 5, 'UPDATE', 'postgres', '2026-09-10 05:25:24.664371', '{"id": 5, "slug": "publicacion-1-usuario1-d89b29", "estado": 0, "titulo": "Publicación N° 1 de usuario1", "resumen": "Resumen breve para la publicación número 1 del usuario usuario1.", "contenido": "Contenido completo y detallado para la publicación 1 registrada por el usuario usuario1.", "creado_en": "2026-09-07T04:15:41.046006", "eliminado": 1, "usuario_id": 2, "categoria_id": 2, "actualizado_en": "2026-09-10T02:58:12.586344", "fecha_publicacion": "2026-09-04T09:11:00.08867"}');
+INSERT INTO public.auditoria_publicacion OVERRIDING SYSTEM VALUE VALUES (61, 46, 'UPDATE', 'postgres', '2026-09-10 05:25:38.873713', '{"id": 46, "slug": "aaa-1789031753037", "estado": 0, "titulo": "aaab", "resumen": "aaa", "contenido": "aaa", "creado_en": "2026-09-10T04:15:53.039037", "eliminado": 1, "usuario_id": 1, "categoria_id": 4, "actualizado_en": "2026-09-10T04:16:28.267312", "fecha_publicacion": "2026-09-10T00:00:00"}');
 
 
 --
--- TOC entry 4951 (class 0 OID 18420)
+-- TOC entry 4950 (class 0 OID 18420)
 -- Dependencies: 222
 -- Data for Name: auditoria_usuario; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -457,10 +462,12 @@ INSERT INTO public.auditoria_usuario OVERRIDING SYSTEM VALUE VALUES (40, 1, 'UPD
 INSERT INTO public.auditoria_usuario OVERRIDING SYSTEM VALUE VALUES (41, 1, 'UPDATE', 'postgres', '2026-09-10 04:03:49.677831', '{"id": 1, "token": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6W10sInN1YiI6ImRhbmllbCIsImlhdCI6MTc4OTAzMDkyNSwiZXhwIjoxNzg5MDMxNTI1fQ.IycpNGZdE1F0z9KuECONcXYNCqygPo_kYmZIx_XuPt8", "activo": true, "password": "$2a$10$QoM4BUcNJKWaRFvoeIX3nOWoeYjgARll90A3EpsEF0S7vebwc1R/C", "username": "daniel", "eliminado": 1, "expirydate": "2026-09-10T04:12:05.303435", "empleado_id": null, "refresh_token": "95b05640-263f-40de-a6aa-a2eea0392aba", "tipo_documento": "CC", "numero_documento": "111111111", "refresh_token_expiry": "2026-09-17T04:02:05.303435"}');
 INSERT INTO public.auditoria_usuario OVERRIDING SYSTEM VALUE VALUES (42, 1, 'UPDATE', 'postgres', '2026-09-10 04:15:14.066387', '{"id": 1, "token": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6W10sInN1YiI6ImRhbmllbCIsImlhdCI6MTc4OTAzMTAyOSwiZXhwIjoxNzg5MDMxNjI5fQ.6Layj0NlY0tvYmzAQTCHW2YJWgIY5bJm35OiWmIVKMk", "activo": true, "password": "$2a$10$QoM4BUcNJKWaRFvoeIX3nOWoeYjgARll90A3EpsEF0S7vebwc1R/C", "username": "daniel", "eliminado": 1, "expirydate": "2026-09-10T04:13:49.67134", "empleado_id": null, "refresh_token": "e43b1290-9f2e-4328-89ee-abaaed6a0435", "tipo_documento": "CC", "numero_documento": "111111111", "refresh_token_expiry": "2026-09-17T04:03:49.67134"}');
 INSERT INTO public.auditoria_usuario OVERRIDING SYSTEM VALUE VALUES (43, 1, 'UPDATE', 'postgres', '2026-09-10 05:05:12.095063', '{"id": 1, "token": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6W10sInN1YiI6ImRhbmllbCIsImlhdCI6MTc4OTAzMTcxMywiZXhwIjoxNzg5MDMyMzEzfQ.T_4BQNRTJmObHrB7n0TQDe_vH47Oyd-U8THn7p5lqtw", "activo": true, "password": "$2a$10$QoM4BUcNJKWaRFvoeIX3nOWoeYjgARll90A3EpsEF0S7vebwc1R/C", "username": "daniel", "eliminado": 1, "expirydate": "2026-09-10T04:25:14.023318", "empleado_id": null, "refresh_token": "b6ed29a6-f870-4cf0-9113-9658c37b7358", "tipo_documento": "CC", "numero_documento": "111111111", "refresh_token_expiry": "2026-09-17T04:15:14.023318"}');
+INSERT INTO public.auditoria_usuario OVERRIDING SYSTEM VALUE VALUES (44, 1, 'UPDATE', 'postgres', '2026-09-10 05:11:47.913452', '{"id": 1, "token": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6W10sInN1YiI6ImRhbmllbCIsImlhdCI6MTc4OTAzNDcxMiwiZXhwIjoxNzg5MDM1MzEyfQ.VcFRf_Vl2Py_bTuQ5cEHqXekwj5twRuVVA3KsDPu3uw", "activo": true, "password": "$2a$10$QoM4BUcNJKWaRFvoeIX3nOWoeYjgARll90A3EpsEF0S7vebwc1R/C", "username": "daniel", "eliminado": 1, "expirydate": "2026-09-10T05:15:12.048642", "empleado_id": null, "refresh_token": "2a0b3e39-d851-4eec-854b-5eb7e9fb5631", "tipo_documento": "CC", "numero_documento": "111111111", "refresh_token_expiry": "2026-09-17T05:05:12.048642"}');
+INSERT INTO public.auditoria_usuario OVERRIDING SYSTEM VALUE VALUES (45, 1, 'UPDATE', 'postgres', '2026-09-10 05:25:17.34409', '{"id": 1, "token": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6W10sInN1YiI6ImRhbmllbCIsImlhdCI6MTc4OTAzNTEwNywiZXhwIjoxNzg5MDM1NzA3fQ.atN_QUfXXF0daqPOlQ78mcgz20Vwy8RBMZFmW-UxNBs", "activo": true, "password": "$2a$10$QoM4BUcNJKWaRFvoeIX3nOWoeYjgARll90A3EpsEF0S7vebwc1R/C", "username": "daniel", "eliminado": 1, "expirydate": "2026-09-10T05:21:47.907531", "empleado_id": null, "refresh_token": "b5797c27-3a15-4f80-9b7e-f6d698b98feb", "tipo_documento": "CC", "numero_documento": "111111111", "refresh_token_expiry": "2026-09-17T05:11:47.907531"}');
 
 
 --
--- TOC entry 4947 (class 0 OID 18370)
+-- TOC entry 4946 (class 0 OID 18370)
 -- Dependencies: 218
 -- Data for Name: categoria; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -472,13 +479,11 @@ INSERT INTO public.categoria OVERRIDING SYSTEM VALUE VALUES (4, 'Anuncios', 'anu
 
 
 --
--- TOC entry 4949 (class 0 OID 18380)
+-- TOC entry 4948 (class 0 OID 18380)
 -- Dependencies: 220
 -- Data for Name: publicacion; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.publicacion OVERRIDING SYSTEM VALUE VALUES (4, 1, 3, 'Publicación N° 4 de daniel', 'publicacion-4-daniel-8b063f', 'Resumen breve para la publicación número 4 del usuario daniel.', 'Contenido completo y detallado para la publicación 4 registrada por el usuario daniel.', 1, '2026-08-28 10:05:48.341003', '2026-09-04 11:59:53.174635', '2026-09-10 02:58:12.586344', 1);
-INSERT INTO public.publicacion OVERRIDING SYSTEM VALUE VALUES (5, 2, 2, 'Publicación N° 1 de usuario1', 'publicacion-1-usuario1-d89b29', 'Resumen breve para la publicación número 1 del usuario usuario1.', 'Contenido completo y detallado para la publicación 1 registrada por el usuario usuario1.', 0, '2026-09-04 09:11:00.08867', '2026-09-07 04:15:41.046006', '2026-09-10 02:58:12.586344', 1);
 INSERT INTO public.publicacion OVERRIDING SYSTEM VALUE VALUES (6, 2, 4, 'Publicación N° 2 de usuario1', 'publicacion-2-usuario1-9d786b', 'Resumen breve para la publicación número 2 del usuario usuario1.', 'Contenido completo y detallado para la publicación 2 registrada por el usuario usuario1.', 2, '2026-08-15 21:02:49.569729', '2026-08-13 03:07:29.128911', '2026-09-10 02:58:12.586344', 1);
 INSERT INTO public.publicacion OVERRIDING SYSTEM VALUE VALUES (7, 2, 3, 'Publicación N° 3 de usuario1', 'publicacion-3-usuario1-601d96', 'Resumen breve para la publicación número 3 del usuario usuario1.', 'Contenido completo y detallado para la publicación 3 registrada por el usuario usuario1.', 2, '2026-09-09 20:26:16.377426', '2026-08-18 10:12:21.8056', '2026-09-10 02:58:12.586344', 1);
 INSERT INTO public.publicacion OVERRIDING SYSTEM VALUE VALUES (8, 2, 3, 'Publicación N° 4 de usuario1', 'publicacion-4-usuario1-ac8b51', 'Resumen breve para la publicación número 4 del usuario usuario1.', 'Contenido completo y detallado para la publicación 4 registrada por el usuario usuario1.', 2, '2026-08-28 15:21:35.457324', '2026-09-06 07:34:47.274951', '2026-09-10 02:58:12.586344', 1);
@@ -502,6 +507,8 @@ INSERT INTO public.publicacion OVERRIDING SYSTEM VALUE VALUES (25, 7, 1, 'Public
 INSERT INTO public.publicacion OVERRIDING SYSTEM VALUE VALUES (26, 7, 3, 'Publicación N° 2 de usuario6', 'publicacion-2-usuario6-bc72aa', 'Resumen breve para la publicación número 2 del usuario usuario6.', 'Contenido completo y detallado para la publicación 2 registrada por el usuario usuario6.', 2, '2026-09-03 01:56:48.07924', '2026-08-12 05:05:46.183562', '2026-09-10 02:58:12.586344', 1);
 INSERT INTO public.publicacion OVERRIDING SYSTEM VALUE VALUES (2, 1, 4, 'Publicación N° 2 de daniel', 'publicacion-2-daniel-f5e30b', 'Resumen breve para la publicación número 2 del usuario daniel.', 'Contenido completo y detallado para la publicación 2 registrada por el usuario daniel.', 0, '2026-08-20 00:00:00', '2026-08-18 12:15:35.931587', '2026-09-10 04:15:19.222637', 1);
 INSERT INTO public.publicacion OVERRIDING SYSTEM VALUE VALUES (3, 1, 3, 'Publicación N° 3 de daniel', 'publicacion-3-daniel-481831', 'Resumen breve para la publicación número 3 del usuario daniel.', 'Contenido completo y detallado para la publicación 3 registrada por el usuario daniel.', 2, '2026-08-28 00:00:00', '2026-09-03 21:25:07.427399', '2026-09-10 04:15:41.014975', 1);
+INSERT INTO public.publicacion OVERRIDING SYSTEM VALUE VALUES (4, 1, 3, 'Publicación N° 4 de daniel', 'publicacion-4-daniel-8b063f', 'Resumen breve para la publicación número 4 del usuario daniel.', 'Contenido completo y detallado para la publicación 4 registrada por el usuario daniel.', 1, '2026-08-28 00:00:00', '2026-09-04 11:59:53.174635', '2026-09-10 05:11:54.204441', 1);
+INSERT INTO public.publicacion OVERRIDING SYSTEM VALUE VALUES (5, 2, 2, 'Publicación N° 1 de usuario1', 'publicacion-1-usuario1-d89b29', 'Resumen breve para la publicación número 1 del usuario usuario1.', 'Contenido completo y detallado para la publicación 1 registrada por el usuario usuario1.', 0, '2026-09-04 00:00:00', '2026-09-07 04:15:41.046006', '2026-09-10 05:25:24.624243', 1);
 INSERT INTO public.publicacion OVERRIDING SYSTEM VALUE VALUES (27, 7, 2, 'Publicación N° 3 de usuario6', 'publicacion-3-usuario6-3efcdb', 'Resumen breve para la publicación número 3 del usuario usuario6.', 'Contenido completo y detallado para la publicación 3 registrada por el usuario usuario6.', 2, '2026-09-04 22:02:32.545038', '2026-08-18 09:53:09.691706', '2026-09-10 02:58:12.586344', 1);
 INSERT INTO public.publicacion OVERRIDING SYSTEM VALUE VALUES (28, 7, 2, 'Publicación N° 4 de usuario6', 'publicacion-4-usuario6-6d6db3', 'Resumen breve para la publicación número 4 del usuario usuario6.', 'Contenido completo y detallado para la publicación 4 registrada por el usuario usuario6.', 2, '2026-08-17 21:28:03.300151', '2026-08-22 18:27:53.508295', '2026-09-10 02:58:12.586344', 1);
 INSERT INTO public.publicacion OVERRIDING SYSTEM VALUE VALUES (29, 8, 1, 'Publicación N° 1 de usuario7', 'publicacion-1-usuario7-017546', 'Resumen breve para la publicación número 1 del usuario usuario7.', 'Contenido completo y detallado para la publicación 1 registrada por el usuario usuario7.', 1, '2026-09-08 23:25:40.062704', '2026-09-04 11:19:46.025141', '2026-09-10 02:58:12.586344', 1);
@@ -521,12 +528,14 @@ INSERT INTO public.publicacion OVERRIDING SYSTEM VALUE VALUES (42, 11, 2, 'Publi
 INSERT INTO public.publicacion OVERRIDING SYSTEM VALUE VALUES (43, 11, 3, 'Publicación N° 3 de usuario10', 'publicacion-3-usuario10-afa267', 'Resumen breve para la publicación número 3 del usuario usuario10.', 'Contenido completo y detallado para la publicación 3 registrada por el usuario usuario10.', 1, '2026-08-21 17:14:51.203362', '2026-09-04 01:12:51.193477', '2026-09-10 02:58:12.586344', 1);
 INSERT INTO public.publicacion OVERRIDING SYSTEM VALUE VALUES (44, 11, 3, 'Publicación N° 4 de usuario10', 'publicacion-4-usuario10-ce4a0a', 'Resumen breve para la publicación número 4 del usuario usuario10.', 'Contenido completo y detallado para la publicación 4 registrada por el usuario usuario10.', 1, '2026-08-29 05:37:55.67051', '2026-08-20 14:59:59.291596', '2026-09-10 02:58:12.586344', 1);
 INSERT INTO public.publicacion OVERRIDING SYSTEM VALUE VALUES (45, 1, 1, 'Mi primera publicación', 'mi-primera-publicacin-1789031140876', 'Resumen corto', 'Contenido de prueba', 0, NULL, '2026-09-10 04:05:40.879748', '2026-09-10 04:05:40.879748', 1);
-INSERT INTO public.publicacion OVERRIDING SYSTEM VALUE VALUES (46, 1, 4, 'aaab', 'aaa-1789031753037', 'aaa', 'aaa', 0, '2026-09-10 00:00:00', '2026-09-10 04:15:53.039037', '2026-09-10 04:16:28.267312', 1);
 INSERT INTO public.publicacion OVERRIDING SYSTEM VALUE VALUES (1, 1, 3, 'Título editado', 'publicacion-1-daniel-6445ba', 'Resumen breve para la publicación número 1 del usuario daniel.', 'Contenido editado', 1, '2026-08-19 20:03:54.183974', '2026-08-29 17:09:46.707358', '2026-09-10 05:05:40.843177', 1);
+INSERT INTO public.publicacion OVERRIDING SYSTEM VALUE VALUES (47, 1, 4, 'aaa', 'aaa-1789035126588', 'aaa', 'aaa', 0, '2026-09-10 00:00:00', '2026-09-10 05:12:06.5901', '2026-09-10 05:12:06.5901', 1);
+INSERT INTO public.publicacion OVERRIDING SYSTEM VALUE VALUES (48, 1, NULL, 'aaa', 'aaa-1789035132925', NULL, 'aaa', 1, '2026-09-10 00:00:00', '2026-09-10 05:12:12.925669', '2026-09-10 05:12:12.925669', 1);
+INSERT INTO public.publicacion OVERRIDING SYSTEM VALUE VALUES (46, 1, 4, 'aaabc', 'aaa-1789031753037', 'aaa', 'aaa', 0, '2026-09-10 00:00:00', '2026-09-10 04:15:53.039037', '2026-09-10 05:25:38.870282', 1);
 
 
 --
--- TOC entry 4945 (class 0 OID 18331)
+-- TOC entry 4944 (class 0 OID 18331)
 -- Dependencies: 216
 -- Data for Name: usuario; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -541,29 +550,29 @@ INSERT INTO public.usuario OVERRIDING SYSTEM VALUE VALUES (8, 'usuario7', 'CC', 
 INSERT INTO public.usuario OVERRIDING SYSTEM VALUE VALUES (9, 'usuario8', 'CC', '99999999', NULL, true, 'TOKEN_USR_008', '2026-12-31 23:59:59', '$2a$10$QoM4BUcNJKWaRFvoeIX3nOWoeYjgARll90A3EpsEF0S7vebwc1R/C', 1, NULL, NULL);
 INSERT INTO public.usuario OVERRIDING SYSTEM VALUE VALUES (10, 'usuario9', 'CC', '10101010', NULL, true, 'TOKEN_USR_009', '2026-12-31 23:59:59', '$2a$10$QoM4BUcNJKWaRFvoeIX3nOWoeYjgARll90A3EpsEF0S7vebwc1R/C', 1, NULL, NULL);
 INSERT INTO public.usuario OVERRIDING SYSTEM VALUE VALUES (11, 'usuario10', 'CC', '11111112', NULL, true, 'TOKEN_USR_010', '2026-12-31 23:59:59', '$2a$10$QoM4BUcNJKWaRFvoeIX3nOWoeYjgARll90A3EpsEF0S7vebwc1R/C', 1, NULL, NULL);
-INSERT INTO public.usuario OVERRIDING SYSTEM VALUE VALUES (1, 'daniel', 'CC', '111111111', NULL, true, 'eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6W10sInN1YiI6ImRhbmllbCIsImlhdCI6MTc4OTAzNDcxMiwiZXhwIjoxNzg5MDM1MzEyfQ.VcFRf_Vl2Py_bTuQ5cEHqXekwj5twRuVVA3KsDPu3uw', '2026-09-10 05:15:12.048642', '$2a$10$QoM4BUcNJKWaRFvoeIX3nOWoeYjgARll90A3EpsEF0S7vebwc1R/C', 1, '2a0b3e39-d851-4eec-854b-5eb7e9fb5631', '2026-09-17 05:05:12.048642');
+INSERT INTO public.usuario OVERRIDING SYSTEM VALUE VALUES (1, 'daniel', 'CC', '111111111', NULL, true, 'eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6W10sInN1YiI6ImRhbmllbCIsImlhdCI6MTc4OTAzNTkxNywiZXhwIjoxNzg5MDM2NTE3fQ.oG212guUXZiMs3pobz8YKPfAJTy-i4EHIfEw-1xFQjA', '2026-09-10 05:35:17.289507', '$2a$10$QoM4BUcNJKWaRFvoeIX3nOWoeYjgARll90A3EpsEF0S7vebwc1R/C', 1, '6de873f6-08ad-4b90-938a-aa8057a9bfa4', '2026-09-17 05:25:17.289507');
 
 
 --
--- TOC entry 4962 (class 0 OID 0)
+-- TOC entry 4961 (class 0 OID 0)
 -- Dependencies: 223
 -- Name: auditoria_publicacion_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.auditoria_publicacion_id_seq', 54, true);
+SELECT pg_catalog.setval('public.auditoria_publicacion_id_seq', 61, true);
 
 
 --
--- TOC entry 4963 (class 0 OID 0)
+-- TOC entry 4962 (class 0 OID 0)
 -- Dependencies: 221
 -- Name: auditoria_usuario_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.auditoria_usuario_id_seq', 43, true);
+SELECT pg_catalog.setval('public.auditoria_usuario_id_seq', 45, true);
 
 
 --
--- TOC entry 4964 (class 0 OID 0)
+-- TOC entry 4963 (class 0 OID 0)
 -- Dependencies: 217
 -- Name: categoria_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -572,16 +581,16 @@ SELECT pg_catalog.setval('public.categoria_id_seq', 4, true);
 
 
 --
--- TOC entry 4965 (class 0 OID 0)
+-- TOC entry 4964 (class 0 OID 0)
 -- Dependencies: 219
 -- Name: publicacion_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.publicacion_id_seq', 46, true);
+SELECT pg_catalog.setval('public.publicacion_id_seq', 48, true);
 
 
 --
--- TOC entry 4966 (class 0 OID 0)
+-- TOC entry 4965 (class 0 OID 0)
 -- Dependencies: 215
 -- Name: usuario_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -736,14 +745,6 @@ CREATE TRIGGER trg_auditoria_usuario AFTER INSERT OR UPDATE ON public.usuario FO
 
 
 --
--- TOC entry 4800 (class 2620 OID 18445)
--- Name: publicacion trg_soft_delete_publicacion; Type: TRIGGER; Schema: public; Owner: postgres
---
-
-CREATE TRIGGER trg_soft_delete_publicacion BEFORE DELETE ON public.publicacion FOR EACH ROW EXECUTE FUNCTION public.fn_soft_delete_publicacion();
-
-
---
 -- TOC entry 4798 (class 2620 OID 18443)
 -- Name: usuario trg_soft_delete_usuario; Type: TRIGGER; Schema: public; Owner: postgres
 --
@@ -769,11 +770,11 @@ ALTER TABLE ONLY public.publicacion
     ADD CONSTRAINT fk_publicacion_usuario FOREIGN KEY (usuario_id) REFERENCES public.usuario(id) ON DELETE CASCADE;
 
 
--- Completed on 2026-09-10 05:06:43
+-- Completed on 2026-09-10 05:29:00
 
 --
 -- PostgreSQL database dump complete
 --
 
-\unrestrict CuNeGKLVIT6gzyrvsP8qR712BeEbe4zjusMNAO8S7ehBVtcClenAT8mlI5uxZka
+\unrestrict UEHrjGUfJUeVAYJLJlMtphVA6UJz6n5ee5CaHKQgzsxoQ1loesezMa0fdScwTh4
 

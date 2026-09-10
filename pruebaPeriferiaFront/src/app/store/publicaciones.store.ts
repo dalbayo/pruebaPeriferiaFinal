@@ -1,10 +1,12 @@
 import { inject } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
 import { tap } from 'rxjs';
 import { PublicacionService } from '../services/publicacion.service';
 import {
   Publicacion,
   PublicacionCreateRequest,
+  TipoFiltroPublicaciones,
 } from '../models/publicacion.model';
 
 // Manejo de estado de publicaciones con NgRx SignalStore. Centraliza la lista
@@ -14,7 +16,7 @@ export interface PublicacionesState {
   items: Publicacion[];
   loading: boolean;
   error: string;
-  tipo: number;
+  tipo: TipoFiltroPublicaciones;
 }
 
 const initialState: PublicacionesState = {
@@ -28,15 +30,15 @@ export const PublicacionesStore = signalStore(
   { providedIn: 'root' },
   withState(initialState),
   withMethods((store, publicacionService = inject(PublicacionService)) => {
-    const cargar = (tipo: number = store.tipo()): void => {
+    const cargar = (tipo: TipoFiltroPublicaciones = store.tipo()): void => {
       patchState(store, { loading: true, error: '', tipo });
       publicacionService.getPublicaciones(tipo).subscribe({
         next: (items) => patchState(store, { items, loading: false }),
-        error: (err) =>
+        error: (err: HttpErrorResponse) =>
           patchState(store, {
             loading: false,
             error:
-              err?.error?.message || 'No se pudieron cargar las publicaciones.',
+              err.error?.message || 'No se pudieron cargar las publicaciones.',
           }),
       });
     };
@@ -76,9 +78,9 @@ export const PublicacionesStore = signalStore(
         patchState(store, { error: '' });
         publicacionService.eliminarPublicacion(id).subscribe({
           next: () => cargar(store.tipo()),
-          error: (err) =>
+          error: (err: HttpErrorResponse) =>
             patchState(store, {
-              error: err?.error?.message || 'No se pudo eliminar la publicación.',
+              error: err.error?.message || 'No se pudo eliminar la publicación.',
             }),
         });
       },

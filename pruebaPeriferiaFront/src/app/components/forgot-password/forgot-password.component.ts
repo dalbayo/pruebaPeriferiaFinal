@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import {
-  FormBuilder,
-  FormGroup,
+  NonNullableFormBuilder,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 import { AuthApiService } from '../../services/auth-api.service';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
@@ -29,10 +29,12 @@ import { RouterLink } from '@angular/router';
   styleUrl: './forgot-password.component.scss',
 })
 export class ForgotPasswordComponent {
-  forgotPasswordForm: FormGroup;
+  // Tipado inferido desde el fb.group() del constructor (Angular 17 Typed
+  // Reactive Forms) — ver nota en login.component.ts.
+  forgotPasswordForm;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: NonNullableFormBuilder,
     private authApiService: AuthApiService,
     private snackBar: MatSnackBar,
   ) {
@@ -43,7 +45,7 @@ export class ForgotPasswordComponent {
 
   onSubmit() {
     if (this.forgotPasswordForm.valid) {
-      const username = this.forgotPasswordForm.get('username')?.value;
+      const { username } = this.forgotPasswordForm.getRawValue();
       this.authApiService.forgotPassword(username).subscribe({
         next: () => {
           this.snackBar.open(
@@ -52,9 +54,9 @@ export class ForgotPasswordComponent {
             { duration: 5000 },
           );
         },
-        error: (err) => {
+        error: (err: HttpErrorResponse) => {
           this.snackBar.open(
-            `Error: ${err?.error?.message || err.message}`,
+            `Error: ${err.error?.message || err.message}`,
             'Cerrar',
             { duration: 5000 },
           );

@@ -5,6 +5,7 @@ import { environment } from '../../environments/environment';
 import {
   Publicacion,
   PublicacionCreateRequest,
+  TipoFiltroPublicaciones,
 } from '../models/publicacion.model';
 
 @Injectable({
@@ -17,7 +18,7 @@ export class PublicacionService {
 
   // El token JWT se agrega automaticamente via authInterceptor.
   // tipo: 0 = todas, 1 = mis publicaciones (usuario del token), 2 = publicaciones de otros usuarios.
-  getPublicaciones(tipo: number = 0): Observable<Publicacion[]> {
+  getPublicaciones(tipo: TipoFiltroPublicaciones = 0): Observable<Publicacion[]> {
     const params = new HttpParams().set('tipo', tipo.toString());
     return this.http.get<Publicacion[]>(this.baseUrl, { params });
   }

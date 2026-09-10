@@ -1,11 +1,11 @@
 import { Component, Inject, OnInit, Optional } from '@angular/core';
 import { NgIf, NgFor } from '@angular/common';
 import {
-  FormBuilder,
-  FormGroup,
+  NonNullableFormBuilder,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 import {
   MAT_DIALOG_DATA,
   MatDialogModule,
@@ -18,12 +18,13 @@ import { MatSelectModule } from '@angular/material/select';
 import { PublicacionService } from '../../services/publicacion.service';
 import { CategoriaService } from '../../services/categoria.service';
 import {
+  EstadoPublicacion,
   Publicacion,
   PublicacionCreateRequest,
 } from '../../models/publicacion.model';
 import { Categoria } from '../../models/categoria.model';
 
-const ESTADOS = [
+const ESTADOS: { valor: EstadoPublicacion; etiqueta: string }[] = [
   { valor: 0, etiqueta: 'Borrador' },
   { valor: 1, etiqueta: 'Publicado' },
   { valor: 2, etiqueta: 'Archivado' },
@@ -46,7 +47,11 @@ const ESTADOS = [
   ],
 })
 export class PublicacionFormDialogComponent implements OnInit {
-  publicacionForm: FormGroup;
+  // Tipado inferido por TypeScript desde el fb.group() de abajo (Angular 17
+  // Typed Reactive Forms): cambiar un nombre de campo aquí sin actualizar el
+  // template, o viceversa, ahora falla en compilación en vez de dar undefined
+  // en runtime.
+  publicacionForm;
   estados = ESTADOS;
   categorias: Categoria[] = [];
   cargandoCategorias = false;
@@ -55,7 +60,7 @@ export class PublicacionFormDialogComponent implements OnInit {
   editMode = false;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: NonNullableFormBuilder,
     private publicacionService: PublicacionService,
     private categoriaService: CategoriaService,
     private dialogRef: MatDialogRef<PublicacionFormDialogComponent>,
@@ -68,13 +73,19 @@ export class PublicacionFormDialogComponent implements OnInit {
 
     this.publicacionForm = this.fb.group({
       titulo: [
-        publicacion?.titulo || '',
+        publicacion?.titulo ?? '',
         [Validators.required, Validators.maxLength(255)],
       ],
-      resumen: [publicacion?.resumen || ''],
-      contenido: [publicacion?.contenido || '', Validators.required],
+      resumen: [publicacion?.resumen ?? ''],
+      contenido: [publicacion?.contenido ?? '', Validators.required],
       estado: [publicacion?.estado ?? 0, Validators.required],
-      categoriaId: [publicacion?.categoriaId ?? null],
+      // El backend serializa la categoría anidada (categoria.id), no un
+      // categoriaId plano — ver models/publicacion.model.ts. Único campo
+      // nullable del form: "sin categoría" se representa como null, por eso
+      // se declara con fb.control<number | null> en vez del atajo [valor].
+      categoriaId: this.fb.control<number | null>(
+        publicacion?.categoria?.id ?? null,
+      ),
       fechaPublicacion: [
         publicacion?.fechaPublicacion
           ? publicacion.fechaPublicacion.substring(0, 10)
@@ -109,7 +120,7 @@ export class PublicacionFormDialogComponent implements OnInit {
       return;
     }
 
-    const raw = this.publicacionForm.value;
+    const raw = this.publicacionForm.getRawValue();
     const request: PublicacionCreateRequest = {
       titulo: raw.titulo,
       resumen: raw.resumen || null,
@@ -134,10 +145,10 @@ export class PublicacionFormDialogComponent implements OnInit {
         this.guardando = false;
         this.dialogRef.close(resultado);
       },
-      error: (err) => {
+      error: (err: HttpErrorResponse) => {
         this.guardando = false;
         this.errorMessage =
-          err?.error?.message ||
+          err.error?.message ||
           (this.editMode
             ? 'No se pudo actualizar la publicación.'
             : 'No se pudo crear la publicación.');

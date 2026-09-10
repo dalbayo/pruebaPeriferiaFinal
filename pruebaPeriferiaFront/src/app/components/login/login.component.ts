@@ -1,12 +1,12 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AuthStore } from '../../store/auth.store';
 import { Router, RouterLink } from '@angular/router';
 import {
-  FormBuilder,
-  FormGroup,
+  NonNullableFormBuilder,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 import { JsonPipe } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -29,19 +29,20 @@ import { NgToastService } from 'ng-angular-popup';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
-export class LoginComponent implements OnInit {
-  loginForm: FormGroup = new FormGroup({});
+export class LoginComponent {
+  // Tipado inferido desde el fb.group() del constructor (Angular 17 Typed
+  // Reactive Forms): si renombras un campo aquí sin actualizar onSubmit()/el
+  // template, el compilador avisa en vez de dejar el valor en undefined.
+  loginForm;
   loginError: string = '';
 
   private authStore = inject(AuthStore);
 
   constructor(
     private router: Router,
-    private fb: FormBuilder,
+    private fb: NonNullableFormBuilder,
     private toastService: NgToastService,
-  ) {}
-
-  ngOnInit() {
+  ) {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
@@ -49,7 +50,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    const { username, password } = this.loginForm.value;
+    const { username, password } = this.loginForm.getRawValue();
 
     this.authStore.login(username, password).subscribe({
       next: () => {
@@ -60,7 +61,7 @@ export class LoginComponent implements OnInit {
         );
         this.router.navigateByUrl('/publicaciones');
       },
-      error: (err: any) => {
+      error: (err: HttpErrorResponse) => {
         this.loginError = this.getErrorMessage(err);
         this.toastService.danger(
           this.loginError,
@@ -71,9 +72,9 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  getErrorMessage(err: any): string {
+  getErrorMessage(err: HttpErrorResponse): string {
     return (
-      err?.error?.message ||
+      err.error?.message ||
       'Usuario o contraseña incorrectos. Intenta de nuevo.'
     );
   }

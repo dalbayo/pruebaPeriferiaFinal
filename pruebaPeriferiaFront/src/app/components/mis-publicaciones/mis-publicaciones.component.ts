@@ -11,19 +11,23 @@ import {
   ValueFormatterParams,
 } from 'ag-grid-community';
 import { PublicacionesStore } from '../../store/publicaciones.store';
-import { Publicacion } from '../../models/publicacion.model';
+import {
+  EstadoPublicacion,
+  Publicacion,
+  TipoFiltroPublicaciones,
+} from '../../models/publicacion.model';
 import { PublicacionFormDialogComponent } from '../../dialogs/publicacion-form-dialog/publicacion-form-dialog.component';
 import { CrearMensajeDialogComponent } from '../../dialogs/crear-mensaje-dialog/crear-mensaje-dialog.component';
 import { DeleteDialogComponent } from '../../dialogs/delete-dialog/delete-dialog.component';
 
-const ESTADO_LABELS: Record<number, string> = {
+const ESTADO_LABELS: Record<EstadoPublicacion, string> = {
   0: 'Borrador',
   1: 'Publicado',
   2: 'Archivado',
 };
 
 /** 0 = todas, 1 = mis publicaciones, 2 = publicaciones de otros usuarios (debe coincidir con backend) */
-export const FILTRO_TIPOS = [
+export const FILTRO_TIPOS: { valor: TipoFiltroPublicaciones; etiqueta: string }[] = [
   { valor: 0, etiqueta: 'Todas las publicaciones' },
   { valor: 1, etiqueta: 'Mis publicaciones' },
   { valor: 2, etiqueta: 'Publicaciones de otros usuarios' },
@@ -45,7 +49,7 @@ export const FILTRO_TIPOS = [
 })
 export class MisPublicacionesComponent implements OnInit {
   filtroTipos = FILTRO_TIPOS;
-  tipoSeleccionado = 0;
+  tipoSeleccionado: TipoFiltroPublicaciones = 0;
 
   gridOptions: GridOptions = {
     pagination: true,
@@ -100,7 +104,7 @@ export class MisPublicacionesComponent implements OnInit {
       headerName: 'Estado',
       width: 130,
       valueFormatter: (params: ValueFormatterParams) =>
-        ESTADO_LABELS[params.value] ?? params.value,
+        ESTADO_LABELS[params.value as EstadoPublicacion] ?? params.value,
     },
     { field: 'fechaPublicacion', headerName: 'Fecha publicación', width: 170 },
     { field: 'creadoEn', headerName: 'Creado en', width: 170 },

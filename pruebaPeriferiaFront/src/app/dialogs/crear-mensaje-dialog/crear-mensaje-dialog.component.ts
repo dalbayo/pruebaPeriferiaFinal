@@ -1,11 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { NgIf } from '@angular/common';
 import {
-  FormBuilder,
-  FormGroup,
+  NonNullableFormBuilder,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
@@ -31,14 +31,16 @@ import { Publicacion } from '../../models/publicacion.model';
   ],
 })
 export class CrearMensajeDialogComponent {
-  mensajeForm: FormGroup;
+  // Tipado inferido desde el fb.group() del constructor (Angular 17 Typed
+  // Reactive Forms) — ver nota en publicacion-form-dialog.component.ts.
+  mensajeForm;
   guardando = false;
   errorMessage = '';
 
   private store = inject(PublicacionesStore);
 
   constructor(
-    private fb: FormBuilder,
+    private fb: NonNullableFormBuilder,
     private dialogRef: MatDialogRef<CrearMensajeDialogComponent>,
   ) {
     this.mensajeForm = this.fb.group({
@@ -60,7 +62,7 @@ export class CrearMensajeDialogComponent {
       return;
     }
 
-    const { mensaje, fechaPublicacion } = this.mensajeForm.value;
+    const { mensaje, fechaPublicacion } = this.mensajeForm.getRawValue();
 
     this.guardando = true;
     this.errorMessage = '';
@@ -69,10 +71,10 @@ export class CrearMensajeDialogComponent {
         this.guardando = false;
         this.dialogRef.close(creada);
       },
-      error: (err: any) => {
+      error: (err: HttpErrorResponse) => {
         this.guardando = false;
         this.errorMessage =
-          err?.error?.message || 'No se pudo publicar el mensaje.';
+          err.error?.message || 'No se pudo publicar el mensaje.';
       },
     });
   }

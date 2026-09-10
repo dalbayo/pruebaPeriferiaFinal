@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import {
   AbstractControl,
-  FormBuilder,
-  FormGroup,
+  NonNullableFormBuilder,
   ReactiveFormsModule,
   ValidationErrors,
   ValidatorFn,
   Validators,
 } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 import { AuthApiService } from '../../services/auth-api.service';
 import { Router, RouterLink } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
@@ -31,26 +31,10 @@ import { NgToastService } from 'ng-angular-popup';
   styleUrl: './signup.component.scss',
 })
 export class SignupComponent {
-  signupForm: FormGroup = new FormGroup({});
+  // Tipado inferido desde el fb.group() del constructor (Angular 17 Typed
+  // Reactive Forms) — ver nota en login.component.ts.
+  signupForm;
   signupError: string = '';
-
-  constructor(
-    private fb: FormBuilder,
-    private authApiService: AuthApiService,
-    private router: Router,
-    private toastService: NgToastService,
-  ) {}
-
-  ngOnInit() {
-    this.signupForm = this.fb.group(
-      {
-        username: ['', Validators.required],
-        password: ['', [Validators.required, Validators.minLength(6)]],
-        confirmPassword: ['', Validators.required],
-      },
-      { validator: this.passwordMatchValidator },
-    );
-  }
 
   passwordMatchValidator: ValidatorFn = (
     control: AbstractControl,
@@ -69,9 +53,25 @@ export class SignupComponent {
     return null;
   };
 
+  constructor(
+    private fb: NonNullableFormBuilder,
+    private authApiService: AuthApiService,
+    private router: Router,
+    private toastService: NgToastService,
+  ) {
+    this.signupForm = this.fb.group(
+      {
+        username: ['', Validators.required],
+        password: ['', [Validators.required, Validators.minLength(6)]],
+        confirmPassword: ['', Validators.required],
+      },
+      { validators: this.passwordMatchValidator },
+    );
+  }
+
   onSubmit() {
     if (this.signupForm.valid) {
-      const { username, password } = this.signupForm.value;
+      const { username, password } = this.signupForm.getRawValue();
       this.authApiService.register(username, password).subscribe({
         next: () => {
           this.toastService.success(
@@ -81,7 +81,7 @@ export class SignupComponent {
           );
           this.router.navigate(['/login']);
         },
-        error: (err) => {
+        error: (err: HttpErrorResponse) => {
           this.signupError = this.getErrorMessage(err);
           this.toastService.danger(this.signupError, 'ERROR DE REGISTRO', 4000);
         },
@@ -89,9 +89,9 @@ export class SignupComponent {
     }
   }
 
-  getErrorMessage(err: any): string {
+  getErrorMessage(err: HttpErrorResponse): string {
     return (
-      err?.error?.message ||
+      err.error?.message ||
       'Ocurrió un error desconocido. Intenta de nuevo.'
     );
   }
