@@ -26,9 +26,30 @@ public class PublicacionController {
 
     private final IPublicacionService publicacionService;
 
+    /**
+     * GET /api/publicaciones?tipo=0|1|2
+     * tipo 0 (default) = todas las publicaciones
+     * tipo 1 = mis publicaciones (del usuario del token)
+     * tipo 2 = publicaciones de otros usuarios (distinto al usuario del token)
+     */
     @GetMapping
-    public ResponseEntity<List<Publicacion>> listar() {
-        return ResponseEntity.ok(publicacionService.findAll());
+    public ResponseEntity<List<Publicacion>> publicaciones(
+            @RequestParam(name = "tipo", required = false, defaultValue = "0") Integer tipo,
+            @AuthenticationPrincipal UserDetailsImpl currentUser) {
+
+        Long usuarioId = currentUser.getUsuario().getId();
+        List<Publicacion> resultado;
+        switch (tipo) {
+            case 1:
+                resultado = publicacionService.findByUsuarioId(usuarioId);
+                break;
+            case 2:
+                resultado = publicacionService.findByUsuarioIdNot(usuarioId);
+                break;
+            default:
+                resultado = publicacionService.findAll();
+        }
+        return ResponseEntity.ok(resultado);
     }
 
     @GetMapping("/{id}")
