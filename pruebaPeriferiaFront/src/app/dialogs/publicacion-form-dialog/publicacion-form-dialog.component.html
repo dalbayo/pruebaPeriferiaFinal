@@ -1,0 +1,66 @@
+<div class="form-container">
+  <h2 mat-dialog-title>{{ editMode ? 'Editar publicación' : 'Crear publicación' }}</h2>
+  <mat-dialog-content>
+    <form [formGroup]="publicacionForm">
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Título</mat-label>
+        <input matInput formControlName="titulo" maxlength="255" />
+        <mat-error *ngIf="publicacionForm.get('titulo')?.hasError('required')">
+          El título es requerido
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Resumen</mat-label>
+        <textarea matInput formControlName="resumen" rows="2"></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Contenido</mat-label>
+        <textarea matInput formControlName="contenido" rows="5"></textarea>
+        <mat-error *ngIf="publicacionForm.get('contenido')?.hasError('required')">
+          El contenido es requerido
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Estado</mat-label>
+        <mat-select formControlName="estado">
+          <mat-option *ngFor="let opcion of estados" [value]="opcion.valor">
+            {{ opcion.etiqueta }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Categoría (opcional)</mat-label>
+        <mat-select formControlName="categoriaId">
+          <mat-option [value]="null">Sin categoría</mat-option>
+          <mat-option *ngFor="let categoria of categorias" [value]="categoria.id">
+            {{ categoria.nombre }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Fecha publicación (opcional)</mat-label>
+        <input matInput type="date" formControlName="fechaPublicacion" />
+      </mat-form-field>
+    </form>
+
+    <div class="alert alert-danger" *ngIf="errorMessage">{{ errorMessage }}</div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-raised-button (click)="cancel()" [disabled]="guardando">
+      Cancelar
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="submit()"
+      [disabled]="guardando"
+    >
+      {{ guardando ? 'Guardando...' : (editMode ? 'Actualizar' : 'Guardar') }}
+    </button>
+  </mat-dialog-actions>
+</div>
